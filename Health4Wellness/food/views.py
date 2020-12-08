@@ -1,8 +1,18 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from .models import food
+
 
 # Create your views here.
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the food index.")
+    food_list = food.objects.order_by('calories')[:5]
+    output = ', '.join([q.name for q in food_list])
+    return render(request, 'food/index.html', {'food_list': food_list})
+
+
+def detail(request, name):
+    queryset = food.objects.filter(name__startswith=name)
+    this_food = get_object_or_404(queryset)
+    return render(request, 'food/details.html', {'food': this_food})
