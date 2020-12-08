@@ -1,0 +1,12 @@
+{% if food1 and food2 %}
+    <ul>
+        <li>{{ food1.name }} vs {{ food2.name }}</a></li>
+        <li>Calories: {{ food1.calories }} vs {{ food2.calories }}</a></li>
+        <li>Carbohydrates{{ food1.carbohydrates }} vs {{ food2.carbohydrates }}</a></li>
+        <li>Fat:{{ food1.fat }} vs {{ food2.fat }}</a></li>
+        <li>Protein{{ food1.protein }} vs {{ food2.protein }}</a></li>
+        <li>Ingredients:{{ food1.ingredients }} vs {{ food2.ingredients }}</a></li>
+    </ul>
+{% else %}
+    <p>No food is available.</p>
+{% endif %}
