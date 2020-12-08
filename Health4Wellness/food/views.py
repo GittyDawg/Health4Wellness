@@ -25,5 +25,5 @@ def compare(request, name1, name2):
     return render(request, 'food/compare.html', context)
 
 
-def compare(request):
-    return render(request, 'food/compare.html')
+def compare_search(request):
+    return render(request, 'food/compare_search.html')
