@@ -7,7 +7,7 @@ from django.db.models import Q
 
 
 def index(request):
-    food_list = food.objects.order_by('calories')[:5]
+    food_list = food.objects.order_by('calories')[:15]
     output = ', '.join([q.name for q in food_list])
     return render(request, 'food/index.html', {'food_list': food_list})
 

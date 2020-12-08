@@ -1,14 +1,62 @@
-Search for foods by name or ingredients!
-<form action="{% url 'search' %}" method="get">
-    <input name="q" type="text" placeholder="Search...">
-</form>
+<html>
+    <head>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                border:0;           
+            }
+            body {
+                background-color: gray;
+                color: black;
+            }
+            a{
+                background-color: inherit;
+                color: inherit;
+            }
+            ul{
+                margin-left: 1in;
+                margin-right: 1in;
+            }
+            #search,#foods{
+                margin:5%;
+                padding: 5%;
+                background-color:rgb(50,50,50);
+                color:white;
+            }
+            #search *,#foods *{
+                background-color: rgb(50,50,50);
+            }
+            #box{
+                background-color: lightgray;
+            }
+            </style>
+    </head>
+    <body>
+        <div id=banner style="text-align:center;
+        font-size: 3em;color:white;background-color:rgb(30,30,30);
+        padding:.5in;margin: 0;border:0;">
+            <h1>Eat 4 Wellness</h1>
+        </div>
 
-{% if foods %}
-    <ul>
-    {% for food in foods %}
-        <li><a href="/{{ food.name }}/">{{ food.name }}</a></li><br/>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No food is available.</p>
-{% endif %}
+        <div id=search>
+            <h1>Search for foods by name or ingredients!</h1>
+            <form action="{% url 'search' %}" method="get">
+                <input id=box name="q" type="text" placeholder="Search...">
+            </form>
+        </div>
+
+        <div id=foods>
+            {% if foods %}
+                <ul>
+                {% for food in foods %}
+                    <li><a href="/{{ food.name }}/">{{ food.name }} </a></li><br/>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No food is available.</p>
+            {% endif %}
+        </div>
+    </body>
+
+</html>
