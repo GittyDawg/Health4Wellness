@@ -23,3 +23,7 @@ def compare(request, name1, name2):
     food2 = get_object_or_404(food, name=name2)
     context = {'food1': food1, 'food2': food2}
     return render(request, 'food/compare.html', context)
+
+
+def compare(request):
+    return render(request, 'food/compare.html')
