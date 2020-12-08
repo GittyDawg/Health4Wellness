@@ -10,6 +10,6 @@ To run, have python and django opened. Navigate to the directory containing the 
 then go to localhost:8000 in the web browser
 urls are as follows:
 localhost:8000 -> displays list of foods in database
-localhost:8000/<foodname> displays details of that food
-localhost:8000/compare/<food1>/<food2> displays details of food 1 and food 2 compared
+localhost:8000/[foodname] displays details of that food
+localhost:8000/compare/[food1]/[food2] displays details of food 1 and food 2 compared
 localhost:8000/compare_search displays a default screen -> will let you search for foods 
