@@ -1,15 +1,14 @@
 Search for foods by name or ingredients!
 <form action="{% url 'search' %}" method="get">
     <input name="q" type="text" placeholder="Search...">
-  </form>
+</form>
 
-{% if food_list %}
+{% if foods %}
     <ul>
-    {% for food in food_list %}
+    {% for food in foods %}
         <li><a href="/{{ food.name }}/">{{ food.name }}</a></li><br/>
     {% endfor %}
     </ul>
 {% else %}
     <p>No food is available.</p>
 {% endif %}
-
