@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from .models import food
-
+from django.db.models import Q
 
 # Create your views here.
 
@@ -25,5 +25,9 @@ def compare(request, name1, name2):
     return render(request, 'food/compare.html', context)
 
 
-def compare_search(request):
-    return render(request, 'food/compare_search.html')
+def search(request):
+    query = request.GET.get('q')
+    object_list = food.objects.filter(
+        Q(name__icontains=query) | Q(ingredients__icontains=query)
+    )
+    return render(request, 'food/search.html', {'foods': object_list})
