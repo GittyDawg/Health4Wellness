@@ -4,6 +4,7 @@ from django.db import models
 
 
 class food(models.Model):
+    name = models.CharField(max_length=200, default='food')
     carbohydrates = models.IntegerField(default=0)
     fat = models.IntegerField(default=0)
     protein = models.IntegerField(default=0)

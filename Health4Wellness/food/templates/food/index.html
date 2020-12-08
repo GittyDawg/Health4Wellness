@@ -1,0 +1,9 @@
+{% if food_list %}
+    <ul>
+    {% for food in food_list %}
+        <li><a href="/{{ food.name }}/">{{ food.name }}</a></li><br/>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No food is available.</p>
+{% endif %}
