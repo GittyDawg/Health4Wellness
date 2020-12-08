@@ -16,3 +16,10 @@ def detail(request, name):
     queryset = food.objects.filter(name__startswith=name)
     this_food = get_object_or_404(queryset)
     return render(request, 'food/details.html', {'food': this_food})
+
+
+def compare(request, name1, name2):
+    food1 = get_object_or_404(food, name=name1)
+    food2 = get_object_or_404(food, name=name2)
+    context = {'food1': food1, 'food2': food2}
+    return render(request, 'food/compare.html', context)
