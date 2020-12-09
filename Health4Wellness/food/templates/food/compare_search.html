@@ -1,2 +1,82 @@
-
-<h1>Will let you search for foods to compare</h1>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type=text/css href="{% static 'css/compare_search.css' %}">
+    </head>
+    <body>
+        <div id="tsparticles" style="position: fixed; z-index: -1;">
+            <canvas class="tsparticles-canvas-el" 
+                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                width="1034" height="956">
+            </canvas> 
+        </div>
+            <div id=banner>
+                <h1>Eat 4 Wellness Food Database</h1>
+            </div> 
+        <div id=content>
+        <h1 id=search_title>Search for foods to compare</h1>
+            <form id=input_box action="{% url 'compare' %}" method="get">
+                <input id=box name="q" type="text" placeholder="Search...">
+                <input id=box name="q2" type="text" placeholder="Search...">
+                <input id=box action="{% url 'compare' %}" type="submit" value=Search> 
+            </form>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
+            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
+            crossorigin="anonymous"></script>
+        <script>
+            window.onload = function() {
+                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
+                // p is the loaded container, for using it later
+                console.log('callback - particles.js config loaded');
+                });
+                tsParticles.load("tsparticles", {
+                particles: {
+                    number: {
+                    value: 120,
+                    density: {
+                        enable: true,
+                        area: 800
+                    }
+                    },
+                    color: {
+                    value: ["rgb(0,0,0)"]
+                    },
+                    shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#b6b2b2"
+                    }
+                    },
+                    size: {
+                    value: 2,
+                    random: false,
+                    },
+                    lineLinked: {
+                    enable: true,
+                    distance: 130,
+                    color: "rgb(0,0,0)",
+                    opacity: 1,
+                    width: 1,
+                    },
+                    move: {
+                    enable: true,
+                    speed: .8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    outMode: "bounce",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                    }
+                },
+                });
+            };
+        </script>
+    </body>
+</html>
