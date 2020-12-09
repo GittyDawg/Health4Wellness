@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('search/', views.search, name='search'),
-    path('compare/<name1>/<name2>/', views.compare, name='compare'),
+    path('compare/', views.compare, name='compare'),
+    path('compare_search/', views.compare_search, name='compare_search'),
     path('<name>/', views.detail, name='detail'),
 ]

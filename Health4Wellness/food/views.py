@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from .models import food
 from django.db.models import Q
-
 # Create your views here.
 
 
@@ -18,11 +17,21 @@ def detail(request, name):
     return render(request, 'food/details.html', {'food': this_food})
 
 
-def compare(request, name1, name2):
-    food1 = get_object_or_404(food, name=name1)
-    food2 = get_object_or_404(food, name=name2)
-    context = {'food1': food1, 'food2': food2}
+def compare(request):
+    try:
+        this_food1 = food.objects.get(name=request.GET.get(
+            'q'))
+        this_food2 = food.objects.get(name=request.GET.get(
+            'q2'))
+    except food.DoesNotExist:
+        this_food1 = None
+        this_food2 = None
+    context = {'food1': this_food1, 'food2': this_food2}
     return render(request, 'food/compare.html', context)
+
+
+def compare_search(request):
+    return render(request, 'food/compare_search.html')
 
 
 def search(request):
