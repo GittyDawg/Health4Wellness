@@ -1,8 +1,8 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'css/index.css' %}">
-    </head>
+        <link rel="stylesheet" type=text/css href="{% static 'hfw/index.css' %}">
+    </head>    
     <body>
         <div id="tsparticles" style="position: fixed; z-index: -1;">
             <canvas class="tsparticles-canvas-el" 
@@ -11,28 +11,15 @@
             </canvas>
         </div>
         <div id=banner>
-            <h1>Eat 4 Wellness Food Database</h1>
+            Health 4 Wellness!
         </div>
-
         <div id=content>
-            <div id=search>
-                <h1 id=search_title>Search for foods by name or ingredients!</h1>
-                <form id=input_box action="{% url 'search' %}" method="get">
-                    <input id=box name="q" type="text" placeholder="Search...">
-                </form>
-            </div>
-    
-            <div id=foods>
-                {% if food_list %}
-                    <ul>
-                    {% for food in food_list %}
-                        <li><a href="/food/{{ food.name }}/">{{ food.name }}</a></li><br/>
-                    {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No food is available.</p>
-                {% endif %}
-            </div>
+            <a class=button href="/food/">
+                Search, discover, and compare different foods!
+            </a>
+            <a class=button href="">
+                Login
+            </a>
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
@@ -94,5 +81,4 @@
         </script>
 
     </body>
-
 </html>
