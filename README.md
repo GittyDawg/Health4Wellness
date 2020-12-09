@@ -2,7 +2,7 @@
 Health4Wellness Project
 
 
-This is the repository for the Health4Wellness Project
+This is the repository for the Health4Wellness Project!
 
 To commit, click green button, copy paste URL, go to vscode -> git tab(left verticle menu) -> clone, paste URL, find a directory to place it in, then go to git -> branch -> create new branch, name the branch, and now you can make changed, commit, pull, push, then publish the branch to the upstream github.
 
