@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#banner {
+  text-align: center;
+  font-size: 2em;
+  color: white;
+  background-color: rgb(35, 35, 35);
+  padding: 0.5in;
+  margin: 0;
+  border: 0;
+  margin-bottom: 5%;
+}
+body {
+  color: black;
+}
+a {
+  background-color: inherit;
+  color: inherit;
+}
+ul {
+  background-color: none;
+  color: inherit;
+  margin-left: 1in;
+  margin-right: 1in;
+}
+li {
+  padding-bottom: 2%;
+  font-size: 2em;
+}
+#content {
+  box-shadow: 0 0 20px rgb(0, 0, 0);
+  margin-left: 25%;
+  margin-right: 25%;
+  font-family: "Roboto", sans-serif;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding-bottom: 5%;
+}
+#foods {
+  padding: 2%;
+}
+#search *,
+#foods * {
+  background-color: none;
+  color: inherit;
+}
+#search_title {
+  padding: 5%;
+  font-family: "Roboto", sans-serif;
+  margin: 0 auto;
+  width: 90%;
+  display: block;
+  text-align: center;
+}
+#box {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  width: 90%;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+}
+
+#tsparticles {
+  position: static;
+  background-attachment: fixed;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 30, 30);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.tsparticles-canvas-el {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 30, 30);
+}
