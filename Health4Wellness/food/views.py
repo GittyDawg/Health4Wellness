@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from .models import food
+from .models import food, Meal
 from django.db.models import Q
 # Create your views here.
 
@@ -14,7 +14,10 @@ def index(request):
 def detail(request, name):
     queryset = food.objects.filter(name__startswith=name)
     this_food = get_object_or_404(queryset)
-    return render(request, 'food/details.html', {'food': this_food})
+
+    meal = Meal()
+
+    return render(request, 'food/details.html', {'food': this_food, 'meal': meal})
 
 
 def compare(request):
@@ -40,3 +43,13 @@ def search(request):
         Q(name__icontains=query) | Q(ingredients__icontains=query)
     )
     return render(request, 'food/search.html', {'foods': object_list})
+
+
+def added_food(request, meal, name):
+    # queryset = Meal.objects.filter(name__startswith=meal)
+    # this_meal = get_object_or_404(queryset) #
+    this_meal = Meal.get_meal()
+
+    template = 'food/search.html'
+    context = {'meal': this_meal.name}
+    return render(request, template, context)

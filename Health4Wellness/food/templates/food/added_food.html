@@ -1,7 +1,7 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'css/details.css' %}">
+        <link rel="stylesheet" type=text/css href="{% static 'css/added_food.css' %}">
     </head>
     <body>
         <div id="tsparticles" style="position: fixed; z-index: -1;">
@@ -14,24 +14,10 @@
             <h1>Eat 4 Wellness Food Database</h1>
         </div>
         <div id=content>
-            <h1 id=search_title>{{ food.name }}</h1>
-            <div id=foods></div>
-                {% if food %}
-                    <ul>
-                        <li>Carbs: {{ food.carbohydrates }}</a></li>
-                        <li>Fats:{{ food.fat }}</a></li>
-                        <li>Protein:{{ food.protein }}</a></li>
-                        <li>Calories: {{ food.calories }}</a></li>
-                        <li>Ingredients: {{ food.ingredients }}</a></li>
-                        <li>Would you like to add this food to your current meal: {{ meal.name }}</a></li>
-                        <a href="/food/added_food/{{ meal.name }}/{{ food.name }}/"><button type="button" class="btn btn-default">YES!</button></a>
-                        <!--<a class=button href="#">YES!</a>-->
-                        <!-- <form id=meal-bttn action="" method="get"></form>-->
-                    </ul>
-                {% else %}
-                    <p>No food is available.</p>
-                {% endif %}
-            </div>
+            <ul>
+                <li>Your meal!: {{ meal.name }}</a></li>
+                <a href="/food/search/"><button type="button" class="btn btn-default">Search again!</button></a>
+            </ul>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
             integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
