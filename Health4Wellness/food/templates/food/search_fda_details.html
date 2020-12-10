@@ -1,7 +1,7 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'css/index.css' %}">
+        <link rel="stylesheet" type=text/css href="{% static 'css/details.css' %}">
     </head>
     <body>
         <div id="tsparticles" style="position: fixed; z-index: -1;">
@@ -11,33 +11,48 @@
             </canvas>
         </div>
         <div id=banner>
-            <h1>🍽 Eat 4 Wellness Food Database</h1>
+            <h1><a href='/food'>🍽 Eat 4 Wellness: FDA Database</a></h1>
         </div>
-
         <div id=content>
-            <div id=search>
-                <h1 id=search_title>Search for foods by name or ingredients! or <br>
-                    <a href='compare_search'> 🍔 compare foods!</a> <br>
-                    <a href='search_fda'> 🍕 search the FDA Database</a>
-                </h1>
-                <form id=input_box action="{% url 'search' %}" method="get">
-                    <input id=box name="q" type="text" placeholder="Search...">
-                </form>
-            </div>
-    
-            <div id=foods>
-                {% if food_list %}
+            <br><p><h3><a href="javascript:history.back()"><pre> < Back to list</pre></a></h3></p>
+            <h1 id=search_title>{{ foodz.0.name }}</h1>
+            <div id=foods></div>
+                
+                <ul>
+                    <li>FDA_ID: {{ foodz.0.fdcId }}</a></li>
+                    <li>Brand: {{ foodz.0.brandOwner }}</a></li>
+                    <li>Ingredients: <br>{{ foodz.0.ingredients }}</a></li>
+                    <!-- <li>{{ foodz }}</a></li> -->
+                    
+                    <li>Nutrients: </a></li>
+                    
                     <ul>
-                    {% for food in food_list %}
-                        <li><a href="/food/{{ food.name }}/">{{ food.name }}</a></li><br/>
-                    {% endfor %}
+                        <small> Yet to be displayed... </small>
+                        <!-- {% for x in foodz.0.nutrients %}
+                            <li><small>{{ x }}</small></a></li><br/>
+                        {% endfor %} -->
+                        <!-- <li>Nutrient: {{ foodz.0. }}</li>
+                        <li>Number: {{ foodz.0. }}</li>
+                        <li>Amount: {{ foodz.0. }}{{ foodz.0. }}</li>
+                        <li>Derived from: {{ foodz.0. }}</li> -->
+                        <!-- <script>
+                            //var food = foodz;
+                            function LoopTest() {
+                                var st = 7;
+                                for (var i=0; i<st; i++)
+                                {  
+                                    document.write('<p>' + i + '</p>'); // This writes the number in a paragraph
+                                }
+                            }
+                            LoopTest()
+                        </script> -->
+                        
                     </ul>
-                {% else %}
-                    <p>No food is available.</p>
-                {% endif %}
+                </ul>
+                
+                
             </div>
         </div>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
             integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
             crossorigin="anonymous"></script>
@@ -99,3 +114,4 @@
     </body>
 
 </html>
+
