@@ -1,16 +1,98 @@
-<form action="{% url 'accounts_app:update' user.id %}" method="post">
-    {% csrf_token %}
-    <ul>
-        <li>Username: {{ user.get_username }}</li>
-        <li><label for="Email">Email:</label> <input type="text" name="Email" id="Email" value="{{ user.email }}" size=50></li>
-        <li><label for="Bio">Bio:</label> <input type="text" name="Bio" id="Bio" value="{{ user.profile.bio }}" size=50></li>
-        <li><label for="Location">Location:</label> <input type="text" name="Location" id="Location" value="{{ user.profile.location }}" size=50></li>
-        <li><label for="Birthdate">Birthdate:</label> <input type="date" name="Birthdate" id="Birthdate" value="{{ user.profile.birth_date }}"></li>
-        <li><label for="Goals">Goals:</label> <input type="text" name="Goals" id="Goals" value="{{ user.profile.goals }}" size=50></li>
-        <li><label for="Weight">Weight:</label> <input type="text" name="Weight" id="Weight" value="{{ user.profile.weight }}"></li>
-        <li><label for="Gender">Gender:</label> <input type="text" name="Gender" id="Gender" value="{{ user.profile.gender }}"></li>
-        <li><label for="Coach">Coach:</label> <input type="text" name="Coach" id="Coach" value="{{ user.profile.coach }}" size=50></li>
-    </ul>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type=text/css href="{% static 'accounts/profile.css' %}">
+    </head>
 
-    <input type="submit" value="Update Profile!">
-</form>
+    <body>
+        <form action="{% url 'accounts_app:update' user.id %}" method="post">
+            {% csrf_token %}
+            <div id="tsparticles" style="position: fixed; z-index: -1;">
+                <canvas class="tsparticles-canvas-el" 
+                    style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                    width="1034" height="956">
+                </canvas>
+            </div>
+            <div id=banner>
+                Your Profile
+            </div>
+
+            <div id=content>
+                <ul>
+                    <li>Username: {{ user.get_username }}</li>
+                    <li><label for="Email">Email:</label> <input class=box type="text" name="Email" id="Email" value="{{ user.email }}" size=50></li>
+                    <li><label for="Bio">Bio:</label> <input class=box type="text" name="Bio" id="Bio" value="{{ user.profile.bio }}" size=50></li>
+                    <li><label for="Location">Location:</label> <input class=box type="text" name="Location" id="Location" value="{{ user.profile.location }}" size=50></li>
+                    <li><label for="Birthdate">Birthdate:</label> <input class=box type="date" name="Birthdate" id="Birthdate" value="{{ user.profile.birth_date }}"></li>
+                    <li><label for="Goals">Goals:</label> <input class=box type="text" name="Goals" id="Goals" value="{{ user.profile.goals }}" size=50></li>
+                    <li><label for="Weight">Weight:</label> <input class=box type="text" name="Weight" id="Weight" value="{{ user.profile.weight }}"></li>
+                    <li><label for="Gender">Gender:</label> <input class=box type="text" name="Gender" id="Gender" value="{{ user.profile.gender }}"></li>
+                    <li><label for="Coach">Coach:</label> <input class=box type="text" name="Coach" id="Coach" value="{{ user.profile.coach }}" size=50></li>
+                </ul>
+
+                <input id=button class=box type="submit" value="Update Profile!">
+            </div>
+        
+            
+        </form>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
+            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
+            crossorigin="anonymous"></script>
+        <script>
+            window.onload = function() {
+                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
+                // p is the loaded container, for using it later
+                console.log('callback - particles.js config loaded');
+                });
+                tsParticles.load("tsparticles", {
+                particles: {
+                    number: {
+                    value: 120,
+                    density: {
+                        enable: true,
+                        area: 800
+                    }
+                    },
+                    color: {
+                    value: ["rgb(0,0,0)"]
+                    },
+                    shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#b6b2b2"
+                    }
+                    },
+                    size: {
+                    value: 2,
+                    random: false,
+                    },
+                    lineLinked: {
+                    enable: true,
+                    distance: 130,
+                    color: "rgb(0,0,0)",
+                    opacity: 1,
+                    width: 1,
+                    },
+                    move: {
+                    enable: true,
+                    speed: .8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    outMode: "bounce",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                    }
+                },
+                });
+            };
+        </script>
+    </body>
+</html>
