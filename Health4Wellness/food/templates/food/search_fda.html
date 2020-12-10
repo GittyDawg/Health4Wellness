@@ -1,7 +1,7 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'css/details.css' %}">
+        <link rel="stylesheet" type=text/css href="{% static 'css/index.css' %}">
     </head>
     <body>
         <div id="tsparticles" style="position: fixed; z-index: -1;">
@@ -11,24 +11,22 @@
             </canvas>
         </div>
         <div id=banner>
-            <h1>Eat 4 Wellness Food Database</h1>
+            <h1><a href='/food'>🍽 Eat 4 Wellness: FDA Database</a></h1>
         </div>
+
         <div id=content>
-            <h1 id=search_title>{{ food.name }}</h1>
-            <div id=foods></div>
-                {% if food %}
-                    <ul>
-                        <li>Carbs: {{ food.carbohydrates }}</a></li>
-                        <li>Fats:{{ food.fat }}</a></li>
-                        <li>Protein:{{ food.protein }}</a></li>
-                        <li>Calories: {{ food.calories }}</a></li>
-                        <li>Ingredients: {{ food.ingredients }}</a></li>
-                    </ul>
-                {% else %}
-                    <p>No food is available.</p>
-                {% endif %}
+            <div id=search>
+                <h1 id=search_title>Search the FDA database... or <a href='https://fdc.nal.usda.gov/index.html'>click here</a></h1>
+                <form id=input_box action="{% url 'search_fda_list' %}" method="get">
+                    <input id=box name="q" type="text" placeholder="Search...">
+                </form>
+            </div>
+    
+            <div id=foods>
+                <p> </p>
             </div>
         </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
             integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
             crossorigin="anonymous"></script>
@@ -90,4 +88,3 @@
     </body>
 
 </html>
-

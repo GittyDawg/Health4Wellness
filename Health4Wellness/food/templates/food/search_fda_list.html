@@ -11,11 +11,12 @@
             </canvas>
         </div>
         <div id=banner>
-            <h1>Eat 4 Wellness Food Database</h1>
+            <h1><a href='/food'>🍽 Eat 4 Wellness: FDA Database</a></h1>
         </div>
+
         <div id=content>
-            <h1 id=search_title>{{ food.name }}</h1>
-            <div id=foods></div>
+            <h1 id=search_title>Top 15 search results for {{ query }}: </h1>
+            <!-- <div id=foods></div>
                 {% if food %}
                     <ul>
                         <li>Carbs: {{ food.carbohydrates }}</a></li>
@@ -27,8 +28,38 @@
                 {% else %}
                     <p>No food is available.</p>
                 {% endif %}
+            </div> -->
+            <div id=foods>
+                {% if foodz %}
+                    <ul>
+                    <!-- {% for x in foodz %}
+                        <li><a href="/food/{{ food.name }}/">{{ food.name }}</a></li><br/>
+                        <li>{{ x }}</li><br/>
+                    {% endfor %} -->
+                    <li><a href='/food/search_fda_details/?q={{ foodz.0.fdcId }}'>{{ foodz.0.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.1.fdcId }}'>{{ foodz.1.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.2.fdcId }}'>{{ foodz.2.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.3.fdcId }}'>{{ foodz.3.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.4.fdcId }}'>{{ foodz.4.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.5.fdcId }}'>{{ foodz.5.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.6.fdcId }}'>{{ foodz.6.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.7.fdcId }}'>{{ foodz.7.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.8.fdcId }}'>{{ foodz.8.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.9.fdcId }}'>{{ foodz.9.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.10.fdcId }}'>{{ foodz.10.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.11.fdcId }}'>{{ foodz.11.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.12.fdcId }}'>{{ foodz.12.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.13.fdcId }}'>{{ foodz.13.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.14.fdcId }}'>{{ foodz.14.name }}</a></a></li>
+                    </ul>
+                {% else %}
+                    <!-- <p>That is not a food.</p> -->
+                    <p> </p>
+                {% endif %}
             </div>
         </div>
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
             integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
             crossorigin="anonymous"></script>
