@@ -5,7 +5,7 @@
     </head>
 
     <body>
-        <form action="{% url 'accounts_app:update' user.id %}" method="post">
+        <form action="{% url 'accounts:update' user.id %}" method="post">
             {% csrf_token %}
             <div id="tsparticles" style="position: fixed; z-index: -1;">
                 <canvas class="tsparticles-canvas-el" 
@@ -20,6 +20,8 @@
             <div id=content>
                 <ul>
                     <li>Username: {{ user.get_username }}</li>
+                    <li><label for="FName">First name:</label> <input class=box type="text" name="FName" id="FName" value="{{ user.first_name }}" size=50></li>
+                    <li><label for="LName">Last name:</label> <input class=box type="text" name="LName" id="LName" value="{{ user.last_name }}" size=50></li>
                     <li><label for="Email">Email:</label> <input class=box type="text" name="Email" id="Email" value="{{ user.email }}" size=50></li>
                     <li><label for="Bio">Bio:</label> <input class=box type="text" name="Bio" id="Bio" value="{{ user.profile.bio }}" size=50></li>
                     <li><label for="Location">Location:</label> <input class=box type="text" name="Location" id="Location" value="{{ user.profile.location }}" size=50></li>
