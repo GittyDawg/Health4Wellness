@@ -60,7 +60,7 @@ def register(request):
             error_message.append('Username invalid. Make sure it contains no special characters.')
         elif User.objects.filter(username=username):
             username = ''
-            error_messsage.append('Username invalid. Not unique.')
+            error_message.append('Username invalid. Not unique.')
         
         if not check_password(password1) or not check_password(password2):
             password1 = ''
