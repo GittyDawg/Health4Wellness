@@ -161,9 +161,12 @@ def searchFDAbyID(query):
             return "None"
 
     def isitinDerived(index, attribute):
-        if attribute in foodData['foodNutrients'][index]["foodNutrientDerivation"]:
-            return foodData['foodNutrients'][index]["foodNutrientDerivation"][attribute]
-        else:
+        try:
+            if attribute in foodData['foodNutrients'][index]["foodNutrientDerivation"]:
+                return foodData['foodNutrients'][index]["foodNutrientDerivation"][attribute]
+            else:
+                return "None"
+        except:
             return "None"
 
     def isitAmount(index, attribute):
@@ -177,18 +180,19 @@ def searchFDAbyID(query):
         
         for i in range(len(foodData["foodNutrients"])):
             # add nutrient properties to list of singles
-            nutrients.update(
-                {
-                    i: 
+                nutrients.update(
                     {
-                        "nutrientName": isitinNutrients(i, "name"),
-                        "nutrientNumber": isitinNutrients(i, "number"),
-                        "amount": isitAmount(i, "amount"),
-                        "units": isitinNutrients(i, "unitName"),
-                        "derivedFrom": isitinDerived(i, "description")
+                        i: 
+                        {
+                            
+                            "nutrientName": isitinNutrients(i, "name"),
+                            "nutrientNumber": isitinNutrients(i, "number"),
+                            "amount": isitAmount(i, "amount"),
+                            "units": isitinNutrients(i, "unitName"),
+                            "derivedFrom": isitinDerived(i, "description")
+                        }
                     }
-                }
-            )
+                )
         return nutrients
 
     foodStuffs.update(
