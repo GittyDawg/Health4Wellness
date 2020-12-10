@@ -1,0 +1,16 @@
+<form action="{% url 'accounts_app:update' user.id %}" method="post">
+    {% csrf_token %}
+    <ul>
+        <li>Username: {{ user.get_username }}</li>
+        <li><label for="Email">Email:</label> <input type="text" name="Email" id="Email" value="{{ user.email }}" size=50></li>
+        <li><label for="Bio">Bio:</label> <input type="text" name="Bio" id="Bio" value="{{ user.profile.bio }}" size=50></li>
+        <li><label for="Location">Location:</label> <input type="text" name="Location" id="Location" value="{{ user.profile.location }}" size=50></li>
+        <li><label for="Birthdate">Birthdate:</label> <input type="date" name="Birthdate" id="Birthdate" value="{{ user.profile.birth_date }}"></li>
+        <li><label for="Goals">Goals:</label> <input type="text" name="Goals" id="Goals" value="{{ user.profile.goals }}" size=50></li>
+        <li><label for="Weight">Weight:</label> <input type="text" name="Weight" id="Weight" value="{{ user.profile.weight }}"></li>
+        <li><label for="Gender">Gender:</label> <input type="text" name="Gender" id="Gender" value="{{ user.profile.gender }}"></li>
+        <li><label for="Coach">Coach:</label> <input type="text" name="Coach" id="Coach" value="{{ user.profile.coach }}" size=50></li>
+    </ul>
+
+    <input type="submit" value="Update Profile!">
+</form>
