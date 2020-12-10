@@ -18,7 +18,7 @@
                 Search, discover, and compare different foods!
             </a>
             {% if user.is_authenticated %}
-            <a class=button href="{% url 'accounts_app:profile' user.id %}"> {# TODO: this needs to go somewhere... #}
+            <a class=button href="{% url 'accounts:profile' user.id %}"> {# TODO: this needs to go somewhere... #}
                 Continue to member menu!
             </a>
 
