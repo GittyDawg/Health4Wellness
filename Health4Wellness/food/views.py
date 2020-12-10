@@ -49,7 +49,8 @@ def added_food(request, meal, name):
     # queryset = Meal.objects.filter(name__startswith=meal)
     # this_meal = get_object_or_404(queryset) #
     this_meal = Meal.get_meal()
+    this_meal.add(name)
 
-    template = 'food/search.html'
-    context = {'meal': this_meal.name}
+    template = 'food/added_food.html'
+    context = {'meal': this_meal}
     return render(request, template, context)
