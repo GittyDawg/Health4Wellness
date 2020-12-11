@@ -29,7 +29,7 @@ def show_profile(request, user_id):
 def update_profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     user.email = request.POST.get('Email', '')
-    user.first_name = request.POST.get('Fname', '')
+    user.first_name = request.POST.get('FName', '')
     user.last_name = request.POST.get('LName', '')
 
     user.save()
