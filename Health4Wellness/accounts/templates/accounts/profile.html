@@ -1,42 +1,539 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'accounts/profile.css' %}">
+        <link rel="stylesheet" type=text/css href="{% static 'hfw/index.css' %}">
+        
+        <meta charset="utf-8"/>
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"/> -->
+        <!-- <meta name="viewport" content="width= 100%, initial-scale=1.0"> -->
+        <title>Web 1920 – 1</title>
+
+        <style id="applicationStylesheet" type="text/css">
+            .mediaViewInfo {
+                --web-view-name: Web 1920 – 1;
+                --web-view-id: Web_1920__1;
+                --web-scale-to-fit: true;
+                --web-scale-to-fit-type: fit;
+                --web-enable-scale-up: true;
+                --web-scale-on-resize: true;
+                --web-enable-deep-linking: true;
+            }
+            :root {
+                --web-view-ids: Web_1920__1;
+            }
+            * {
+                /* margin: 0; */
+                padding: 0;
+                box-sizing: border-box;
+                border: none;
+                font-family: Montserrat;
+            }
+            .Web_1920__1_Class {
+                position: fixed; 
+                right: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0);
+                overflow: visible; */
+                --web-view-name: Web 1920 – 1;
+                --web-view-id: Web_1920__1;
+                --web-scale-to-fit: true;
+                --web-scale-to-fit-type: fit;
+                --web-enable-scale-up: true;
+                --web-scale-on-resize: true;
+                --web-enable-deep-linking: true;
+            }
+            .Rectangle_1_Class {
+                fill: rgba(0, 0, 0, 0.6);
+                width: 300%;
+            }
+            .Rectangle_1 {
+                filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 1));
+                position: fixed;
+                /* overflow: visible; */
+                width: 300%;
+                height: 120px;
+                /* left: 0;
+                right: 0; */
+                /* margin-left: 0%;
+                margin-right: 0%; */
+                /* top: 0;
+                float: left;
+                margin: 0 0 1em 0;
+                padding: 0; */
+                top: 0;
+                right: 0;
+                left: 0;
+            }
+            .Rectangle_4_Class {
+                fill: rgba(0,0,0,0.6);
+                width: 300%;
+            }
+            .Rectangle_4 {
+                filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 1));
+                position: fixed;
+                overflow: visible;
+                width: 100%;
+                height: 120px;
+                left: 0px;
+                bottom: 0px;
+            }
+            .Rectangle_3_Class {
+                fill: rgba(0, 0, 0, 0);
+                justify-content: center;
+            }
+            .Rectangle_3 {
+                /* filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 1)); */
+                position: relative;
+                overflow: visible;
+                width: 100%;
+                height: 400px;
+                /* left: 416px; */
+                top: 30%;
+            }
+            .Group_1_Class {
+                position: absolute;
+                width: 124px;
+                height: 60px;
+                left: 1658px;
+                top: 30px;
+                overflow: visible;
+            }
+            .Path_1_Class {
+                fill: rgba(0,104,255,1);
+            }
+            .Path_1 {
+                overflow: visible;
+                position: fixed;
+                width: 124px;
+                height: 60px;
+                right: 10%;
+                top: 30px;
+                transform: matrix(1,0,0,1,0,0);
+            }
+            .LOGIN_Class {
+                right: 10%;
+                top: 30px;
+                position: fixed;
+                overflow: visible;
+                width: 124px;
+                height: 60px;
+                white-space: nowrap;
+                text-align: center;
+                /* vertical-align: middle; */
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                color: rgba(0,0,0,1);
+                letter-spacing: 1.21px;
+            }
+            .Developed_by_Josh_B_Michael_B__Class {
+                left: 10%;
+                bottom: 60px;
+                position: fixed;
+                overflow: visible;
+                width: auto;
+                white-space: nowrap;
+                text-align: left;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                color: rgba(191,191,191,1);
+                letter-spacing: 0.1px;
+            }
+            .ID2020_AU_Software_Engineering_Class {
+                right: 10%;
+                bottom: 60px;
+                position: fixed;
+                overflow: visible;
+                width: auto;
+                white-space: nowrap;
+                text-align: right;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                color: rgba(153,153,153,1);
+                letter-spacing: 0.1px;
+            }
+            .parent2 {
+                width: 1080px;
+                height: 101px;
+                top: 0;
+                left: 10%;
+                border: 2px solid rgba(0, 0, 255, 0);
+                position: fixed;
+                overflow: visible;
+            }
+            .Health4Wellness_Class {
+                /* left: 10%; */
+                margin-left: 0px;
+                margin-top: 33px;
+                /* position: fixed; */
+                overflow: visible;
+                width: auto;
+                white-space: nowrap;
+                text-align: left;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 35px;
+                color: rgba(255,255,255,1);
+                float: left;
+            }
+            .HOME_Class {
+                /* left: 657px; */
+                margin-left: 101px;
+                float: left;
+                margin-top: 51px;
+                /* position: fixed; */
+                overflow: visible;
+                width: 54px;
+                white-space: nowrap;
+                text-align: left;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                color: rgba(153,153,153,1);
+                letter-spacing: 0.1px;
+            }
+            .Line_1_Class {
+                fill: transparent;
+                stroke: rgba(64,64,64,1);
+                stroke-width: 1px;
+                stroke-linejoin: miter;
+                stroke-linecap: butt;
+                stroke-miterlimit: 4;
+                shape-rendering: auto;
+            }
+            .Line_1 {
+                overflow: visible;
+                position: fixed;
+                width: 1px;
+                height: 19px;
+                /* left: 751px; */
+                margin-left: 35px;
+                float: left;
+                margin-top: 51.5px;
+                transform: matrix(1,0,0,1,0,0);
+            }
+            .SEARCH_Class {
+                /* left: 786px; */
+                margin-left: 70px;
+                float: left;
+                margin-top: 51px;
+                /* position: fixed; */
+                overflow: visible;
+                width: 70px;
+                white-space: nowrap;
+                text-align: left;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                color: rgba(153,153,153,1);
+                letter-spacing: 0.1px;
+            }
+            .Line_2_Class {
+                fill: transparent;
+                stroke: rgba(64,64,64,1);
+                stroke-width: 1px;
+                stroke-linejoin: miter;
+                stroke-linecap: butt;
+                stroke-miterlimit: 4;
+                shape-rendering: auto;
+            }
+            .Line_2 {
+                overflow: visible;
+                position: fixed;
+                width: 1px;
+                height: 19px;
+                /* left: 890px; */
+                margin-left: 29px;
+                float: left;
+                margin-top: 51.5px;
+                transform: matrix(1,0,0,1,0,0);
+            }
+            .COMPARE_Class {
+                /* left: 917.5px; */
+                margin-left: 59px;
+                float: left;
+                margin-top: 51px;
+                /* position: fixed; */
+                overflow: visible;
+                width: 86px;
+                white-space: nowrap;
+                text-align: left;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                color: rgba(153,153,153,1);
+                letter-spacing: 0.1px;
+            }
+            .Line_3_Class {
+                fill: transparent;
+                stroke: rgba(64,64,64,1);
+                stroke-width: 1px;
+                stroke-linejoin: miter;
+                stroke-linecap: butt;
+                stroke-miterlimit: 4;
+                shape-rendering: auto;
+            }
+            .Line_3 {
+                overflow: visible;
+                position: fixed;
+                width: 1px;
+                height: 19px;
+                /* left: 1029px; */
+                margin-left: 34px;
+                float: left;
+                margin-top: 51.5px;
+                transform: matrix(1,0,0,1,0,0);
+            }
+            .PROFILE_Class {
+                /* left: 1064px; */
+                margin-left: 67px;
+                float: left;
+                margin-top: 51px;
+                /* position: fixed; */
+                overflow: visible;
+                width: 73px;
+                white-space: nowrap;
+                text-align: left;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                color: rgba(153,153,153,1);
+                letter-spacing: 0.1px;
+            }
+            .parent {
+                width: auto;
+                height: 101px;
+                top: 0;
+                right: 10%;
+                border: 2px solid rgba(0, 0, 255, 0);
+                position: fixed;
+                overflow: visible;
+            }
+            .float_left {
+                background-color: #2c73cf00;
+            }
+            .login_button {
+                background-color: #2c73cf; /* Green */
+                border: none;
+                color: rgba(0, 0, 0, 0.747);
+                padding: 16px 4px;
+                text-align: center;
+                text-decoration: none;
+                /* display: inline-block; */
+                /* position: fixed; */
+                /* right: 10%; */
+                white-space: nowrap;
+                text-align: center;
+                vertical-align: middle;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                letter-spacing: 1.21px;
+                margin-top: 24px;
+                /* width: auto; */
+                float: right;
+            }
+            .button2 {
+                padding: 16px 32px;
+            }
+            .Welcome_Joshua_Class {
+                margin-top: 38px;
+                /* right: 15%; */
+                /* position: fixed; */
+                overflow: visible;
+                width: auto;
+                white-space: nowrap;
+                text-align: right;
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 20px;
+                color: rgba(255,255,255,1);
+                /* text-transform: uppercase; */
+                margin-right: 25px;
+                float: right;
+            }
+            .clearfix{
+                clear:both
+            }
+        </style>
+        
+        <!-- <div data-collapse="medium data-animation="default" data-duration"400" role="banner" class="navigation w-nav">
+            <h1 class="heading">Health4Wellness</h1>
+            <div class="navigation-wrap">
+                <div class="menu">
+                    <nav role="navigation" class="navigation-items w-nav-menu">
+                        <a href="/about" class="navigation-item w-nav-link">Home</a>
+                        <a href="/about" class="navigation-item w-nav-link">Search</a>
+                        <a href="/about" class="navigation-item w-nav-link">Compare</a>
+                        <a href="/about" class="navigation-item w-nav-link">Ask</a>
+                        <a href="/about" class="navigation-item w-nav-link">Profile</a>
+                    </nav>
+                    <div class="menu-button w-nav-button"><img src="images/menu-icon_1menu-icon.png" width="22" alt="" class="menu-icon"></div>
+                </div>
+            </div>
+            <div class="text-block">Welcome, Joshua</div>
+            <a href="login.html" class="button cc-contact-us w-inline-block">
+                <div>Login</div>
+            </a>
+        </div> -->
+        
     </head>
+    
+    
 
     <body>
-        <form action="{% url 'accounts:update' user.id %}" method="post">
-            {% csrf_token %}
-            <div id="tsparticles" style="position: fixed; z-index: -1;">
-                <canvas class="tsparticles-canvas-el" 
-                    style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
-                    width="1034" height="956">
-                </canvas>
-            </div>
-            <div id=banner>
+        <div id="tsparticles" style="position: fixed; z-index: -1;">
+            <canvas class="tsparticles-canvas-el" 
+                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                width="1034" height="956">
+            </canvas>
+        </div>
+        <!-- <ul class="topnav">
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="right"><a href="#about">About</a></li>
+        </ul> -->
+        
+        <div id="Rectangle_3">
+            <svg class="Rectangle_3">
+                <rect class="Rectangle_3_Class" rx="0" ry="0" x="0" y="0" width="1088" height="20%">
+                </rect>
+            </svg>
+        </div>
+
+
+        <div id=content>
+            <div>
                 Your Profile
             </div>
+            <ul>
+                <li>Username: {{ user.get_username }}</li>
+                <li><label for="FName">First name:</label> <input class=box type="text" name="FName" id="FName" value="{{ user.first_name }}" size=50></li>
+                <li><label for="LName">Last name:</label> <input class=box type="text" name="LName" id="LName" value="{{ user.last_name }}" size=50></li>
+                <li><label for="Email">Email:</label> <input class=box type="text" name="Email" id="Email" value="{{ user.email }}" size=50></li>
+                <li><label for="Bio">Bio:</label> <input class=box type="text" name="Bio" id="Bio" value="{{ user.profile.bio }}" size=50></li>
+                <li><label for="Location">Location:</label> <input class=box type="text" name="Location" id="Location" value="{{ user.profile.location }}" size=50></li>
+                <li><label for="Birthdate">Birthdate:</label> <input class=box type="date" name="Birthdate" id="Birthdate" value="{{ user.profile.birth_date }}"></li>
+                <li><label for="Goals">Goals:</label> <input class=box type="text" name="Goals" id="Goals" value="{{ user.profile.goals }}" size=50></li>
+                <li><label for="Weight">Weight:</label> <input class=box type="text" name="Weight" id="Weight" value="{{ user.profile.weight }}"></li>
+                <li><label for="Gender">Gender:</label> <input class=box type="text" name="Gender" id="Gender" value="{{ user.profile.gender }}"></li>
+                <li><label for="Coach">Coach:</label> <input class=box type="text" name="Coach" id="Coach" value="{{ user.profile.coach }}" size=50></li>
+            </ul>
 
-            <div id=content>
-                <ul>
-                    <li>Username: {{ user.get_username }}</li>
-                    <li><label for="FName">First name:</label> <input class=box type="text" name="FName" id="FName" value="{{ user.first_name }}" size=50></li>
-                    <li><label for="LName">Last name:</label> <input class=box type="text" name="LName" id="LName" value="{{ user.last_name }}" size=50></li>
-                    <li><label for="Email">Email:</label> <input class=box type="text" name="Email" id="Email" value="{{ user.email }}" size=50></li>
-                    <li><label for="Bio">Bio:</label> <input class=box type="text" name="Bio" id="Bio" value="{{ user.profile.bio }}" size=50></li>
-                    <li><label for="Location">Location:</label> <input class=box type="text" name="Location" id="Location" value="{{ user.profile.location }}" size=50></li>
-                    <li><label for="Birthdate">Birthdate:</label> <input class=box type="date" name="Birthdate" id="Birthdate" value="{{ user.profile.birth_date }}"></li>
-                    <li><label for="Goals">Goals:</label> <input class=box type="text" name="Goals" id="Goals" value="{{ user.profile.goals }}" size=50></li>
-                    <li><label for="Weight">Weight:</label> <input class=box type="text" name="Weight" id="Weight" value="{{ user.profile.weight }}"></li>
-                    <li><label for="Gender">Gender:</label> <input class=box type="text" name="Gender" id="Gender" value="{{ user.profile.gender }}"></li>
-                    <li><label for="Coach">Coach:</label> <input class=box type="text" name="Coach" id="Coach" value="{{ user.profile.coach }}" size=50></li>
-                </ul>
+            <input id=button class=box type="submit" value="Update Profile!">
+        </div>
 
-                <input id=button class=box type="submit" value="Update Profile!">
-            </div>
-        
+        <div id="Web_1920__1" class="Web_1920__1_Class">
+            <svg class="Rectangle_1">
+                <rect class="Rectangle_1_Class" rx="0" ry="0" x="0" y="0" width="1920" height="101">
+                    
+                    <div class="parent">
+                        <div class="login_button">
+                            {% if user.is_authenticated %}
+                            <a class=button2 href="{% url 'logout' %}?next={{request.path}}">
+                                LOGOUT
+                            </a>
+                            {% else %}
+                            <a class=button2 href="{% url 'login' %}?next={{request.path}}">
+                                LOGIN
+                            </a>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="Welcome_Joshua_Class">
+                            {% if user.is_authenticated %}
+                            <span>Welcome, &nbsp{{ user.get_username }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="parent2">
+                        <div class="Health4Wellness_Class">
+                            <span>Health4Wellness</span>
+                        </div>
+
+                        <div class="HOME_Class">
+                            <a href="/ " class="navigation-item w-nav-link">HOME</a>
+                        </div>
+                        <div class="Line_1_Class">       
+                            <svg class="Line_1" viewBox="0 0 1 19">
+                                <path class="Line_1_Class" d="M 0 0 L 0 19">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="SEARCH_Class">
+                            <a href="/food/search_fda/" class="navigation-item w-nav-link">SEARCH</a>
+                        </div>
+                        <div class="Line_2_Class">
+                            <svg class="Line_2" viewBox="0 0 1 19">
+                                <path class="Line_2_Class" d="M 0 0 L 0 19">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="COMPARE_Class">
+                            <a href="/food/compare_search" class="navigation-item w-nav-link">COMPARE</a>
+                        </div>
+                        <div class="Line_3_Class">
+                            {% if user.is_authenticated %}
+                            <svg class="Line_3" viewBox="0 0 1 19">
+                                <path class="Line_3_Class" d="M 0 0 L 0 19">
+                                </path>
+                            </svg>
+                            {% endif %} 
+                        </div>
+                        <div class="PROFILE_Class">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'accounts:profile' user.id %}"> 
+                                PROFILE
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </rect>
+            </svg>
+            <svg class="Rectangle_4">
+                <rect class="Rectangle_4_Class" rx="0" ry="0" x="0" y="0" width="1920" height="101">
+                </rect>
+            </svg>
             
-        </form>
+            
+            <!-- <div style="position:absolute;width:124px;height:59.375px;left:1658px;top:20.812px;overflow:visible;" class="Group_1_Class">
+                Welcome, 
+            </div> -->
+            
+
+            <div class="Developed_by_Josh_B_Michael_B__Class">
+                <span>Developed by Josh B, Michael B, Tyler B, Josh D, & Christian S. </span>
+            </div>
+            <div class="ID2020_AU_Software_Engineering_Class">
+                <span>©2020 AU Software Engineering Class</span>
+            </div>
+            
+            
+            </div>
+        </div>
+        
+        <!-- <div id=banner>
+            Health 4 Wellness!
+        </div> -->
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
@@ -96,5 +593,6 @@
                 });
             };
         </script>
+
     </body>
 </html>
