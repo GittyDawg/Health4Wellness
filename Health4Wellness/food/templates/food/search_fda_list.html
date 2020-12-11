@@ -1,0 +1,124 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type=text/css href="{% static 'css/details.css' %}">
+    </head>
+    <body>
+        <div id="tsparticles" style="position: fixed; z-index: -1;">
+            <canvas class="tsparticles-canvas-el" 
+                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                width="1034" height="956">
+            </canvas>
+        </div>
+        <div id=banner>
+            <h1><a href='/food'>🍽 Eat 4 Wellness: FDA Database</a></h1>
+        </div>
+
+        <div id=content>
+            <h1 id=search_title>Top 15 search results for {{ query }}: </h1>
+            <!-- <div id=foods></div>
+                {% if food %}
+                    <ul>
+                        <li>Carbs: {{ food.carbohydrates }}</a></li>
+                        <li>Fats:{{ food.fat }}</a></li>
+                        <li>Protein:{{ food.protein }}</a></li>
+                        <li>Calories: {{ food.calories }}</a></li>
+                        <li>Ingredients: {{ food.ingredients }}</a></li>
+                    </ul>
+                {% else %}
+                    <p>No food is available.</p>
+                {% endif %}
+            </div> -->
+            <div id=foods>
+                {% if foodz %}
+                    <ul>
+                    <!-- {% for x in foodz %}
+                        <li><a href="/food/{{ food.name }}/">{{ food.name }}</a></li><br/>
+                        <li>{{ x }}</li><br/>
+                    {% endfor %} -->
+                    <li><a href='/food/search_fda_details/?q={{ foodz.0.fdcId }}'>{{ foodz.0.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.1.fdcId }}'>{{ foodz.1.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.2.fdcId }}'>{{ foodz.2.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.3.fdcId }}'>{{ foodz.3.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.4.fdcId }}'>{{ foodz.4.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.5.fdcId }}'>{{ foodz.5.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.6.fdcId }}'>{{ foodz.6.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.7.fdcId }}'>{{ foodz.7.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.8.fdcId }}'>{{ foodz.8.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.9.fdcId }}'>{{ foodz.9.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.10.fdcId }}'>{{ foodz.10.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.11.fdcId }}'>{{ foodz.11.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.12.fdcId }}'>{{ foodz.12.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.13.fdcId }}'>{{ foodz.13.name }}</a></a></li>
+                    <li><a href='/food/search_fda_details/?q={{ foodz.14.fdcId }}'>{{ foodz.14.name }}</a></a></li>
+                    </ul>
+                {% else %}
+                    <!-- <p>That is not a food.</p> -->
+                    <p> </p>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
+            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
+            crossorigin="anonymous"></script>
+        <script>
+            window.onload = function() {
+                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
+                // p is the loaded container, for using it later
+                console.log('callback - particles.js config loaded');
+                });
+                tsParticles.load("tsparticles", {
+                particles: {
+                    number: {
+                    value: 120,
+                    density: {
+                        enable: true,
+                        area: 800
+                    }
+                    },
+                    color: {
+                    value: ["rgb(0,0,0)"]
+                    },
+                    shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#b6b2b2"
+                    }
+                    },
+                    size: {
+                    value: 2,
+                    random: false,
+                    },
+                    lineLinked: {
+                    enable: true,
+                    distance: 130,
+                    color: "rgb(0,0,0)",
+                    opacity: 1,
+                    width: 1,
+                    },
+                    move: {
+                    enable: true,
+                    speed: .8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    outMode: "bounce",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                    }
+                },
+                });
+            };
+        </script>
+
+    </body>
+
+</html>
+
