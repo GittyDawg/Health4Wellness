@@ -27,25 +27,71 @@
                     <li>Nutrients: </a></li>
                     
                     <ul>
-                        <small> Yet to be displayed... </small>
+                        <!-- <small> Yet to be displayed... </small> -->
                         <!-- {% for x in foodz.0.nutrients %}
                             <li><small>{{ x }}</small></a></li><br/>
                         {% endfor %} -->
-                        <!-- <li>Nutrient: {{ foodz.0. }}</li>
-                        <li>Number: {{ foodz.0. }}</li>
-                        <li>Amount: {{ foodz.0. }}{{ foodz.0. }}</li>
-                        <li>Derived from: {{ foodz.0. }}</li> -->
-                        <!-- <script>
+                        <!-- for now this is manual bc i can't figure out how to do lists. prints the first x nutrients -->
+                        <small>
+                            <li>
+                                {{ foodz.0.nutrients.0.nutrientName }} <br>
+                                <small>
+                                    Number: {{ foodz.0.nutrients.0.nutrientNumber }} <br>
+                                    Amount: {{ foodz.0.nutrients.0.amount }}{{ foodz.0.nutrients.0.units }} <br>
+                                    Derived from: {{ foodz.0.nutrients.0.derivedFrom }} <br>
+                                </small>
+                            </li>
+                            <li>
+                                {{ foodz.0.nutrients.1.nutrientName }} <br>
+                                <small>
+                                    Number: {{ foodz.0.nutrients.1.nutrientNumber }} <br>
+                                    Amount: {{ foodz.0.nutrients.1.amount }}{{ foodz.0.nutrients.1.units }} <br>
+                                    Derived from: {{ foodz.0.nutrients.1.derivedFrom }} <br>
+                                </small>
+                            </li>
+                            <li>
+                                {{ foodz.0.nutrients.2.nutrientName }} <br>
+                                <small>
+                                    Number: {{ foodz.0.nutrients.2.nutrientNumber }} <br>
+                                    Amount: {{ foodz.0.nutrients.2.amount }}{{ foodz.0.nutrients.2.units }} <br>
+                                    Derived from: {{ foodz.0.nutrients.2.derivedFrom }} <br>
+                                </small>
+                            </li>
+                            <li>
+                                {{ foodz.0.nutrients.3.nutrientName }} <br>
+                                <small>
+                                    Number: {{ foodz.0.nutrients.3.nutrientNumber }} <br>
+                                    Amount: {{ foodz.0.nutrients.3.amount }}{{ foodz.0.nutrients.3.units }} <br>
+                                    Derived from: {{ foodz.0.nutrients.3.derivedFrom }} <br>
+                                </small>
+                            </li>
+                            <li>
+                                {{ foodz.0.nutrients.4.nutrientName }} <br>
+                                <small>
+                                    Number: {{ foodz.0.nutrients.4.nutrientNumber }} <br>
+                                    Amount: {{ foodz.0.nutrients.4.amount }}{{ foodz.0.nutrients.4.units }} <br>
+                                    Derived from: {{ foodz.0.nutrients.4.derivedFrom }} <br>
+                                </small>
+                            </li>
+                        </small>
+                        <!-- {{ foodz }} -->
+                        <script>
+                            // console.log("hello");
                             //var food = foodz;
-                            function LoopTest() {
-                                var st = 7;
-                                for (var i=0; i<st; i++)
-                                {  
-                                    document.write('<p>' + i + '</p>'); // This writes the number in a paragraph
-                                }
-                            }
-                            LoopTest()
-                        </script> -->
+                            // var food = 7
+                            // console.log(Object.keys(foodz[0]).length);
+                            var food = Object.keys(foodz[0].nutrients).length;
+                            document.write('<p>' + food + '</p>');
+                            // for (var i=0; i<30; i++)
+                            // {  
+                            //     // var index = i
+                            //     if (foodz[0].nutrients[i] != null) {
+                            //         document.write('<p>' + i + '</p>'); // This writes the number in a paragraph
+                            //     } else {
+                            //         break;    
+                            //     }
+                            // }
+                        </script>
                         
                     </ul>
                 </ul>
