@@ -417,22 +417,16 @@
         </div>
 
         <div id=content>
-            <a class=button href="/food/">
-                Search, discover, and compare different foods!
-            </a>
-            {% if user.is_authenticated %}
-            <a class=button href="{% url 'accounts:profile' user.id %}"> {# TODO: this needs to go somewhere... #}
-                Continue to member menu!
-            </a>
-            
-            <a class=button href="{% url 'logout' %}?next={{request.path}}">
-                    User: {{ user.get_username }}
-                    Logout
-            {% else %}
-            <a class=button href="{% url 'login' %}?next={{request.path}}">
-                    Login
-                {% endif %}
-            </a>
+            <div id=search>
+                <h1 id=search_title>Search the FDA database... or <a href='https://fdc.nal.usda.gov/index.html'>click here</a></h1>
+                <form id=input_box action="{% url 'search_fda_list' %}" method="get">
+                    <input id=box name="q" type="text" placeholder="Search...">
+                </form>
+            </div>
+    
+            <div id=foods>
+                <p> </p>
+            </div>
         </div>
 
         <div id="Web_1920__1" class="Web_1920__1_Class">
