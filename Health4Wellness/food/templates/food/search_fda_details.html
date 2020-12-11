@@ -1,0 +1,117 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type=text/css href="{% static 'css/details.css' %}">
+    </head>
+    <body>
+        <div id="tsparticles" style="position: fixed; z-index: -1;">
+            <canvas class="tsparticles-canvas-el" 
+                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                width="1034" height="956">
+            </canvas>
+        </div>
+        <div id=banner>
+            <h1><a href='/food'>🍽 Eat 4 Wellness: FDA Database</a></h1>
+        </div>
+        <div id=content>
+            <br><p><h3><a href="javascript:history.back()"><pre> < Back to list</pre></a></h3></p>
+            <h1 id=search_title>{{ foodz.0.name }}</h1>
+            <div id=foods></div>
+                
+                <ul>
+                    <li>FDA_ID: {{ foodz.0.fdcId }}</a></li>
+                    <li>Brand: {{ foodz.0.brandOwner }}</a></li>
+                    <li>Ingredients: <br>{{ foodz.0.ingredients }}</a></li>
+                    <!-- <li>{{ foodz }}</a></li> -->
+                    
+                    <li>Nutrients: </a></li>
+                    
+                    <ul>
+                        <small> Yet to be displayed... </small>
+                        <!-- {% for x in foodz.0.nutrients %}
+                            <li><small>{{ x }}</small></a></li><br/>
+                        {% endfor %} -->
+                        <!-- <li>Nutrient: {{ foodz.0. }}</li>
+                        <li>Number: {{ foodz.0. }}</li>
+                        <li>Amount: {{ foodz.0. }}{{ foodz.0. }}</li>
+                        <li>Derived from: {{ foodz.0. }}</li> -->
+                        <!-- <script>
+                            //var food = foodz;
+                            function LoopTest() {
+                                var st = 7;
+                                for (var i=0; i<st; i++)
+                                {  
+                                    document.write('<p>' + i + '</p>'); // This writes the number in a paragraph
+                                }
+                            }
+                            LoopTest()
+                        </script> -->
+                        
+                    </ul>
+                </ul>
+                
+                
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
+            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
+            crossorigin="anonymous"></script>
+        <script>
+            window.onload = function() {
+                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
+                // p is the loaded container, for using it later
+                console.log('callback - particles.js config loaded');
+                });
+                tsParticles.load("tsparticles", {
+                particles: {
+                    number: {
+                    value: 120,
+                    density: {
+                        enable: true,
+                        area: 800
+                    }
+                    },
+                    color: {
+                    value: ["rgb(0,0,0)"]
+                    },
+                    shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#b6b2b2"
+                    }
+                    },
+                    size: {
+                    value: 2,
+                    random: false,
+                    },
+                    lineLinked: {
+                    enable: true,
+                    distance: 130,
+                    color: "rgb(0,0,0)",
+                    opacity: 1,
+                    width: 1,
+                    },
+                    move: {
+                    enable: true,
+                    speed: .8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    outMode: "bounce",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                    }
+                },
+                });
+            };
+        </script>
+
+    </body>
+
+</html>
+

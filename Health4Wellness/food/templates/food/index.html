@@ -11,12 +11,15 @@
             </canvas>
         </div>
         <div id=banner>
-            <h1>Eat 4 Wellness Food Database</h1>
+            <h1>🍽 Eat 4 Wellness Food Database</h1>
         </div>
 
         <div id=content>
             <div id=search>
-                <h1 id=search_title>Search for foods by name or ingredients! or <a href='compare_search'>compare foods!</a></h1>
+                <h1 id=search_title>Search for foods by name or ingredients! or <br>
+                    <a href='compare_search'> 🍔 compare foods!</a> <br>
+                    <a href='search_fda'> 🍕 search the FDA Database</a>
+                </h1>
                 <form id=input_box action="{% url 'search' %}" method="get">
                     <input id=box name="q" type="text" placeholder="Search...">
                 </form>
