@@ -10,5 +10,6 @@ urlpatterns = [
     path('search_fda_details/', views.search_fda_details, name='search_fda_details'),
     path('compare/', views.compare, name='compare'),
     path('compare_search/', views.compare_search, name='compare_search'),
+    path('added_food/<meal>/<name>/', views.added_food, name='added_food'),
     path('<name>/', views.detail, name='detail'),
 ]
