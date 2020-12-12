@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required, permission_required
+from .models import Dietlog
 
 import datetime
 import re
@@ -36,7 +38,7 @@ def update_profile(request, user_id):
     #print(request.POST) #debug
     user.profile.bio = request.POST.get('Bio', '')
     user.profile.location = request.POST.get('Location', '')
-    #user.profile.birth_date = request.POST.get('BirthDate', timezone.now()) #need better method for this
+    user.profile.birth_date = datetime.datetime.strptime(str(request.POST.get('Birthdate', timezone.now()))[:10], '%Y-%m-%d')
     user.profile.goals = request.POST.get('Goals', '')
     user.profile.weight = float(request.POST.get('Weight', '-1.0'))
     user.profile.gender = request.POST.get('Gender', '')
@@ -97,5 +99,16 @@ def register(request):
             return HttpResponseRedirect(reverse('accounts:profile', args=(user.id,)))
     else:
         return render(request, 'accounts/register.html')
+
+@login_required
+def dietlog(request, user_id, log_id):
+    dietlog = get_object_or_404(Dietlog, pk=log_id)
+    user = get_object_or_404(Dietlog, pk=log_id)
+    if request.method == "POST":
+        
+        return render(request, 'accounts/dietlog.html', {'log':dietlog})
+    else:
+        #probably a get method
+        return render(request, 'accounts/dietlog.html', {'log':dietlog})
 
     

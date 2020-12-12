@@ -25,7 +25,7 @@
                     <li><label for="Email">Email:</label> <input class=box type="text" name="Email" id="Email" value="{{ user.email }}" size=50></li>
                     <li><label for="Bio">Bio:</label> <input class=box type="text" name="Bio" id="Bio" value="{{ user.profile.bio }}" size=50></li>
                     <li><label for="Location">Location:</label> <input class=box type="text" name="Location" id="Location" value="{{ user.profile.location }}" size=50></li>
-                    <li><label for="Birthdate">Birthdate:</label> <input class=box type="date" name="Birthdate" id="Birthdate" value="{{ user.profile.birth_date }}"></li>
+                    <li><label for="Birthdate">Birthdate:</label> <input class=box type="date" name="Birthdate" id="Birthdate" value="{{ user.profile.birth_date|date:'Y-m-d' }}"></li>
                     <li><label for="Goals">Goals:</label> <input class=box type="text" name="Goals" id="Goals" value="{{ user.profile.goals }}" size=50></li>
                     <li><label for="Weight">Weight:</label> <input class=box type="text" name="Weight" id="Weight" value="{{ user.profile.weight }}"></li>
                     <li><label for="Gender">Gender:</label> <input class=box type="text" name="Gender" id="Gender" value="{{ user.profile.gender }}"></li>

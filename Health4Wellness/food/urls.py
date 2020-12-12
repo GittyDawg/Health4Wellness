@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('search/', views.search, name='search'),
@@ -12,4 +13,6 @@ urlpatterns = [
     path('compare_search/', views.compare_search, name='compare_search'),
     path('added_food/<meal>/<name>/', views.added_food, name='added_food'),
     path('<name>/', views.detail, name='detail'),
+    path('<meal_id>/update', views.update_meal, name='update_meal'),
+    path('add/<food_name>', views.add_intermediary, name='add')
 ]

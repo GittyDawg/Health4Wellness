@@ -1,32 +1,34 @@
 <html>
     <head>
         {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'css/added_food.css' %}">
+        <link rel="stylesheet" type=text/css href="{% static 'accounts/profile.css' %}">
     </head>
+
     <body>
-        <div id="tsparticles" style="position: fixed; z-index: -1;">
-            <canvas class="tsparticles-canvas-el" 
-                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
-                width="1034" height="956">
-            </canvas>
-        </div>
-        <div id=banner>
-            <h1>Meal view</h1>
-        </div>
-        <form action="{% url 'update_meal' meal.id %}" method="POST">
+        {# <form action="{% url 'accounts:update' user.id %}" method="post"> #}
             {% csrf_token %}
-            <div id=content>
-                <label for="Mealname">Meal:</label> <input class=box type="text" name="Mealname" id="Mealname" value="{{ meal.name }}" size=50>
-                <ul>
-                    {% for food in meal.food_set.all %}
-                        <li><a href="{% url 'detail' food %}">{{ food }}</a></li>
-                    {% endfor %}
-                    <a href="{% url 'index' %}"><button type="button" class="btn btn-default">Search again!</button></a>
-                </ul>
-                <input id=button class=box type="submit" value="Update Meal Name!">
+            <div id="tsparticles" style="position: fixed; z-index: -1;">
+                <canvas class="tsparticles-canvas-el" 
+                    style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                    width="1034" height="956">
+                </canvas>
             </div>
-        </form>
+            <div id=banner>
+                Your Dietlog
+            </div>
+
+            <div id=content>
+                <ul>
+                    {% for meal in log.meal_set.all %}
+                        
+                    {% endfor %}
+                </ul>
+            </div>
         
+            
+        {# </form> #}
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
             integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
             crossorigin="anonymous"></script>
@@ -84,8 +86,5 @@
                 });
             };
         </script>
-
     </body>
-
 </html>
-

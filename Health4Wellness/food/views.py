@@ -1,5 +1,6 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import food, Meal
 from django.db.models import Q
 import requests
@@ -16,9 +17,11 @@ def detail(request, name):
     queryset = food.objects.filter(name__startswith=name)
     this_food = get_object_or_404(queryset)
 
-    meal = Meal()
+    meal_set = request.session.get('meal_set', [])
+    for i in range(len(meal_set)):
+        meal_set[i] = Meal.objects.get(id=meal_set[i])
 
-    return render(request, 'food/details.html', {'food': this_food, 'meal': meal})
+    return render(request, 'food/details.html', {'food': this_food, 'meal_set': meal_set})
 
 
 def compare(request):
@@ -48,12 +51,64 @@ def search(request):
 def added_food(request, meal, name):
     # queryset = Meal.objects.filter(name__startswith=meal)
     # this_meal = get_object_or_404(queryset) #
-    this_meal = Meal.get_meal()
-    this_meal.add(name)
+    meal_set = request.session.get('meal_set', [])
+    f = food.objects.get(name=name) #would prefer this to be something more unique like an id, TODO
+    #if request.method == 'POST':
+        #i.e. if a food object is actually being added
+    if len(meal_set) == 0:
+        this_meal = Meal.create(meal)
+        this_meal.save()
 
-    template = 'food/added_food.html'
+        f.meals.add(this_meal) 
+        f.save()
+        request.session['meal_set'] = [this_meal.id]
+    else:
+        this_meal = None
+        for num in meal_set:
+            m = Meal.objects.get(id=num)
+            if m.name == meal:
+                this_meal = m
+                break
+        if this_meal == None:
+            this_meal = Meal.create(meal)
+            this_meal.save()
+            request.session['meal_set'].append(this_meal.id)
+        f.meals.add(this_meal)
+        f.save()
+    request.session.modified = True
+    
     context = {'meal': this_meal}
-    return render(request, template, context)
+    return render(request, 'food/added_food.html', context)
+    """else:
+        #If the meal is just being viewed in a GET request
+        for m in meal_set:
+                if m.name == meal:
+                    this_meal = m
+                    break
+        context = {'meal': this_meal}
+        return render(request, 'food/added_food.html', context)"""
+
+def update_meal(request, meal_id):
+    #make sure the person making changes is in the session that owns the meal
+    owner = False
+    for i in request.session.get('meal_set'):
+        if i == int(meal_id):
+            owner = True
+    
+    if owner:
+        meal = Meal.objects.get(id=meal_id)
+        meal.name = request.POST.get('Mealname')
+        meal.save()
+        return render(request, 'food/added_food.html', {'meal': meal})
+    else:
+        #Yell at them for being hackers lol
+        print("blocked {}".format(request.session.get('meal_set')))
+        pass
+
+def add_intermediary(request, food_name):
+    meal_name = request.POST.get("yes")
+    print(request.POST.get("yes"))
+    return HttpResponseRedirect(reverse('added_food', args=(meal_name, food_name)))
 
 def search_fda(request):
     return render(request, 'food/search_fda.html')
