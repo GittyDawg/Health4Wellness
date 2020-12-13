@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import food, Meal
@@ -6,6 +6,12 @@ from django.db.models import Q
 import requests
 # Create your views here.
 
+def check_meal_owner(request, meal_id):
+    owner = False
+    for i in request.session.get('meal_set'):
+        if i == int(meal_id):
+            owner = True
+    return owner
 
 def index(request):
     food_list = food.objects.order_by('calories')[:15]
@@ -48,54 +54,14 @@ def search(request):
     )
     return render(request, 'food/search.html', {'foods': object_list})
 
-def added_food(request, meal, name):
-    # queryset = Meal.objects.filter(name__startswith=meal)
-    # this_meal = get_object_or_404(queryset) #
-    meal_set = request.session.get('meal_set', [])
-    f = food.objects.get(name=name) #would prefer this to be something more unique like an id, TODO
-    #if request.method == 'POST':
-        #i.e. if a food object is actually being added
-    if len(meal_set) == 0:
-        this_meal = Meal.create(meal)
-        this_meal.save()
-
-        f.meals.add(this_meal) 
-        f.save()
-        request.session['meal_set'] = [this_meal.id]
-    else:
-        this_meal = None
-        for num in meal_set:
-            m = Meal.objects.get(id=num)
-            if m.name == meal:
-                this_meal = m
-                break
-        if this_meal == None:
-            this_meal = Meal.create(meal)
-            this_meal.save()
-            request.session['meal_set'].append(this_meal.id)
-        f.meals.add(this_meal)
-        f.save()
-    request.session.modified = True
-    
-    context = {'meal': this_meal}
-    return render(request, 'food/added_food.html', context)
-    """else:
-        #If the meal is just being viewed in a GET request
-        for m in meal_set:
-                if m.name == meal:
-                    this_meal = m
-                    break
-        context = {'meal': this_meal}
-        return render(request, 'food/added_food.html', context)"""
-
 def update_meal(request, meal_id):
-    #make sure the person making changes is in the session that owns the meal
-    owner = False
-    for i in request.session.get('meal_set'):
-        if i == int(meal_id):
-            owner = True
-    
-    if owner:
+    if check_meal_owner(request, meal_id): #make sure the person making changes is in the session that owns the meal
+        if bool(request.POST.get('delete', False)): #Meal was designated to be deleted
+            Meal.objects.filter(id=meal_id).delete()
+            request.session['meal_set'].remove(meal_id)
+            request.session.modified=True
+            return HttpResponseRedirect(reverse('index'))
+
         meal = Meal.objects.get(id=meal_id)
         meal.name = request.POST.get('Mealname')
         meal.save()
@@ -103,12 +69,43 @@ def update_meal(request, meal_id):
     else:
         #Yell at them for being hackers lol
         print("blocked {}".format(request.session.get('meal_set')))
-        pass
+        return Http404()
 
-def add_intermediary(request, food_name):
-    meal_name = request.POST.get("yes")
-    print(request.POST.get("yes"))
-    return HttpResponseRedirect(reverse('added_food', args=(meal_name, food_name)))
+def add_food_to_meal(request, food_id):
+    if request.POST.get("yes") == None:
+        return HttpResponseRedirect(reverse('detail', args=(food.objects.get(id=food_id).name,)))
+
+    meal_id = int(request.POST.get("yes"))
+    
+    meal_set = request.session.get('meal_set', [])
+    f = food.objects.get(id=food_id)
+    
+    if len(meal_set) == 0 or meal_id == -1:
+        this_meal = Meal.create(meal)
+        this_meal.save()
+
+        f.meals.add(this_meal) 
+        f.save()
+        if len(meal_set) == 0:
+            request.session['meal_set'] = [this_meal.id]
+        else:
+            request.session['meal_set'].append(this_meal.id)
+    else:
+        if check_meal_owner(request, meal_id):
+            this_meal = Meal.objects.get(id=meal_id)
+            f.meals.add(this_meal)
+            f.save()
+        else:
+            #yell at them, for being hackers lol
+            print("blocked {}".format(request.session.get('meal_set')))
+            return Http404()
+    request.session.modified = True
+    
+    context = {'meal': this_meal}
+    return HttpResponseRedirect(reverse('view_meal', args=(meal_id,)))
+
+def view_meal(request, meal_id):
+    return render(request, 'food/meal.html', {'meal': Meal.objects.get(id=meal_id)})
 
 def search_fda(request):
     return render(request, 'food/search_fda.html')
