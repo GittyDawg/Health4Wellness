@@ -11,14 +11,24 @@
             </canvas>
         </div>
         <div id=banner>
-            <h1>Eat 4 Wellness Food Database</h1>
+            <h1>Meal view</h1>
         </div>
-        <div id=content>
-            <ul>
-                <li>{{meal.name}}: {{ meal.contains }}</a></li>
-                <a href="/food/"><button type="button" class="btn btn-default">Search again!</button></a>
-            </ul>
-        </div>
+        <form action="{% url 'update_meal' meal.id %}" method="POST">
+            {% csrf_token %}
+            <div id=content>
+                <label for="Mealname">Meal:</label> <input class=box type="text" name="Mealname" id="Mealname" value="{{ meal.name }}" size=50>
+                <ul>
+                    {% for entry in meal.entry_set.all %}
+                        <li><a href="{% url 'detail' entry.food.name %}">{{ entry.food.name }}</a>: <input type="number" id="e{{ entry.id}}" name="e{{ entry.id }}" value="{{ entry.quantity }}" min="0" max="100"></li>
+                    {% endfor %}
+                    <a href="{% url 'index' %}"><button type="button" class="btn btn-default">Search again!</button></a>
+                </ul>
+
+                <label for="delete">Delete:</label><input id="delete" class=box type="checkbox" name="delete" value="True">
+                <input id=button class=box type="submit" value="Update Meal!">
+            </div>
+        </form>
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
             integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
             crossorigin="anonymous"></script>
