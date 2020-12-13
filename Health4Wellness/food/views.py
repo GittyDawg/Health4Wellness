@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import food, Meal
+from .models import food, Meal, Entry
 from django.db.models import Q
 import requests
 # Create your views here.
@@ -61,9 +61,20 @@ def update_meal(request, meal_id):
             request.session['meal_set'].remove(meal_id)
             request.session.modified=True
             return HttpResponseRedirect(reverse('index'))
-
+        
         meal = Meal.objects.get(id=meal_id)
         meal.name = request.POST.get('Mealname')
+
+        for entry in meal.entry_set.all():
+            quantity = int(request.POST.get("e{}".format(entry.id)))
+            print(entry)
+            print(entry.id)
+            print(quantity)
+            if quantity == 0:
+                Entry.objects.filter(id=entry.id).delete()
+            else:
+                entry.quantity = quantity
+                entry.save()
         meal.save()
         return HttpResponseRedirect(reverse('view_meal', args=(meal_id,)))
     else:
@@ -84,8 +95,9 @@ def add_food_to_meal(request, food_id):
         this_meal = Meal.create("blank_meal")
         this_meal.save()
 
-        f.meals.add(this_meal) 
-        f.save()
+        #must create new entry for blank meal to be populated
+        entry = Entry.create(f, this_meal)
+        entry.save()
         if len(meal_set) == 0:
             request.session['meal_set'] = [this_meal.id]
         else:
@@ -93,8 +105,15 @@ def add_food_to_meal(request, food_id):
     else:
         if check_meal_owner(request, meal_id):
             this_meal = Meal.objects.get(id=meal_id)
-            f.meals.add(this_meal)
-            f.save()
+            
+            entry = this_meal.entry_set.filter(food=f)
+
+            if not entry: #this food is not yet a part of the meal
+                entry = Entry.create(f, this_meal)
+                entry.save()
+            else: #this food already has an entry in the meal
+                entry.quantity += 1
+                entry.save() 
         else:
             #yell at them, for being hackers lol
             print("blocked {}".format(request.session.get('meal_set')))

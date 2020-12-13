@@ -35,8 +35,20 @@ class food(models.Model):
     calories = models.IntegerField(default=0)
     ingredients = models.CharField(max_length=200)
 
-    #allows a many-to-one relationship for food to meal
-    meals = models.ManyToManyField(Meal)
-
     def __str__(self):
         return self.name
+
+class Entry(models.Model): #an entry in a meal containing food and quantity of the food
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    food = models.ForeignKey(food, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return "Entry of {} {} in meal: {}".format(self.quantity, self.food, self.meal)
+
+    @classmethod
+    def create(cls, food_, meal):
+        entry = cls(food=food_, meal=meal)
+        
+        return entry
+

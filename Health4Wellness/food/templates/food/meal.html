@@ -18,8 +18,8 @@
             <div id=content>
                 <label for="Mealname">Meal:</label> <input class=box type="text" name="Mealname" id="Mealname" value="{{ meal.name }}" size=50>
                 <ul>
-                    {% for food in meal.food_set.all %}
-                        <li><a href="{% url 'detail' food %}">{{ food }}</a></li>
+                    {% for entry in meal.entry_set.all %}
+                        <li><a href="{% url 'detail' entry.food.name %}">{{ entry.food.name }}</a>: <input type="number" id="e{{ entry.id}}" name="e{{ entry.id }}" value="{{ entry.quantity }}" min="0" max="100"></li>
                     {% endfor %}
                     <a href="{% url 'index' %}"><button type="button" class="btn btn-default">Search again!</button></a>
                 </ul>
