@@ -29,7 +29,7 @@
                             <li>Create a meal containing this food!</li>
                             
                             <label for="mealblank_meal">Yes!</label>
-                                <input type="radio" name="yes" value="-1" id="mealblank_meal" class="btn btn-default">
+                                <input type="radio" name="yes" value="0" id="mealblank_meal" class="btn btn-default">
                             
                         {% else %}
                             {% for meal in meal_set %}
@@ -45,7 +45,7 @@
                                 
                                 <li>Create a new meal containing this food!</li>
                                 <label for="mealblank_meal">Yes!</label>
-                                <input type="radio" name="yes" value="-1" id="mealblank_meal" class="btn btn-default">
+                                <input type="radio" name="yes" value="0" id="mealblank_meal" class="btn btn-default">
                                
                             
                         {% endif %}

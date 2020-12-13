@@ -65,7 +65,7 @@ def update_meal(request, meal_id):
         meal = Meal.objects.get(id=meal_id)
         meal.name = request.POST.get('Mealname')
         meal.save()
-        return render(request, 'food/added_food.html', {'meal': meal})
+        return HttpResponseRedirect(reverse('view_meal', args=(meal_id,)))
     else:
         #Yell at them for being hackers lol
         print("blocked {}".format(request.session.get('meal_set')))
@@ -80,7 +80,7 @@ def add_food_to_meal(request, food_id):
     meal_set = request.session.get('meal_set', [])
     f = food.objects.get(id=food_id)
     
-    if len(meal_set) == 0 or meal_id == -1:
+    if len(meal_set) == 0 or meal_id == 0:
         this_meal = Meal.create("blank_meal")
         this_meal.save()
 
@@ -102,7 +102,7 @@ def add_food_to_meal(request, food_id):
     request.session.modified = True
     
     context = {'meal': this_meal}
-    return HttpResponseRedirect(reverse('view_meal', args=(meal_id,)))
+    return HttpResponseRedirect(reverse('view_meal', args=(this_meal.id,)))
 
 def view_meal(request, meal_id):
     return render(request, 'food/meal.html', {'meal': Meal.objects.get(id=meal_id)})
