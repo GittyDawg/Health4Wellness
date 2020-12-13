@@ -81,7 +81,7 @@ def add_food_to_meal(request, food_id):
     f = food.objects.get(id=food_id)
     
     if len(meal_set) == 0 or meal_id == -1:
-        this_meal = Meal.create(meal)
+        this_meal = Meal.create("blank_meal")
         this_meal.save()
 
         f.meals.add(this_meal) 
