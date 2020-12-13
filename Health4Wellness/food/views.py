@@ -67,9 +67,9 @@ def update_meal(request, meal_id):
 
         for entry in meal.entry_set.all():
             quantity = int(request.POST.get("e{}".format(entry.id)))
-            print(entry)
-            print(entry.id)
-            print(quantity)
+            #print(entry)
+            #print(entry.id)
+            #print(quantity)
             if quantity == 0:
                 Entry.objects.filter(id=entry.id).delete()
             else:

@@ -22,6 +22,12 @@ class Dietlog(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @classmethod
+    def create(cls, user, name):
+        dietlog = cls(user=user, name=name)
+        
+        return dietlog
 
 
 @receiver(post_save, sender=User)

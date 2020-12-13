@@ -1,11 +1,15 @@
 from django.db import models
 from accounts.models import Dietlog
+from django.db.models.signals import pre_delete, m2m_changed
+from django.contrib.sessions.models import Session
+from django.dispatch import receiver
 
 # Create your models here.
 class Meal(models.Model):
     name = models.TextField(max_length=100)
-    dietlog = models.ManyToManyField(Dietlog)
+    dietlog = models.ManyToManyField(Dietlog, null=True)
     date_eaten = models.DateField(null=True)
+    active = models.BooleanField(default=True)
 
     class meta:
         ordering = ['name']
@@ -52,3 +56,18 @@ class Entry(models.Model): #an entry in a meal containing food and quantity of t
         
         return entry
 
+@receiver(m2m_changed, sender=Dietlog)
+def handle_meals(sender, **kwargs):
+    for meal in Meal.objects.all():
+        if meal.dietlog == None and meal.active == False:
+            Meal.objects.filter(id=meal.id).delete()
+
+def sessionend_handler(sender, **kwargs):
+    print(sender)
+    #for meal_id in sender.get('meal_set', []):
+        #m = Meal.objects.filter(id=meal_id)
+        #m.active = False
+        #if m.dietlog == None:
+        #    Meal.objects.filter(id=meal_id).delete()
+
+pre_delete.connect(sessionend_handler, sender=Session)

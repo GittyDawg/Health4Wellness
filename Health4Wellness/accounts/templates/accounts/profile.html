@@ -30,6 +30,12 @@
                     <li><label for="Weight">Weight:</label> <input class=box type="text" name="Weight" id="Weight" value="{{ user.profile.weight }}"></li>
                     <li><label for="Gender">Gender:</label> <input class=box type="text" name="Gender" id="Gender" value="{{ user.profile.gender }}"></li>
                     <li><label for="Coach">Coach:</label> <input class=box type="text" name="Coach" id="Coach" value="{{ user.profile.coach }}" size=50></li>
+
+                    {% for log in user.dietlog_set.all %}
+                        <li>View dietlog: <a href="{% url 'accounts:log' user.id log.id %}">{{ log.name }}</a></li>
+                    {% endfor %}
+
+                    <li>Create new dietlog: <input type="checkbox" name="create" value="True"></li>
                 </ul>
 
                 <input id=button class=box type="submit" value="Update Profile!">

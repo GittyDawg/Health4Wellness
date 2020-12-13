@@ -18,11 +18,40 @@
             </div>
 
             <div id=content>
-                <ul>
-                    {% for meal in log.meal_set.all %}
-                        
-                    {% endfor %}
-                </ul>
+                <form action="{% url 'accounts:update_dietlog' user.id log.id %}" method="POST">
+                    {% csrf_token %}
+                    <label for="Logname">Meal:</label> <input class=box type="text" name="Logname" id="Logname" value="{{ log.name }}" size=50>
+                    <ul>
+                        {% for meal in log.meal_set.all %}
+    
+                            {% if active_meals|lookup:meal.id == 1 %}
+                                <li><label for="m{{ meal.id }}"><a href="{% url 'view_meal' meal.id %}" >{{ meal.name }}</a></label><input type="checkbox" id="m{{ meal.id }}" name="m{{ meal.id }}" value="True" checked> eaten at {{ meal.date_eaten }}, containing: 
+                                    {% for entry in meal.entry_set.all %}
+                                        <a href="{% url 'detail' entry.food.name %}" >{{ entry.food.name }}</a>
+                                    {% endfor %}
+                                    <p>Remove? <input type="checkbox" id="r{{ meal.id }}" name="r{{ meal.id }}" value="True"></p>
+                                </li>
+                            {% else %}
+                                <li><label for="m{{ meal.id }}"><a href="{% url 'view_meal' meal.id %}" >{{ meal.name }}</a></label><input type="checkbox" id="m{{ meal.id }}" name="m{{ meal.id }}" value="True"> eaten at {{ meal.date_eaten }}, containing: 
+                                    {% for entry in meal.entry_set.all %}
+                                        <a href="{% url 'detail' entry.food.name %}" >{{ entry.food.name }}</a>
+                                    {% endfor %}
+                                    <p>Remove? <input type="checkbox" id="r{{ meal.id }}" name="r{{ meal.id }}" value="True"></p>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% for meal in add_meals %}
+                                <li>{{ meal.name }} eaten at {{ meal.date_eaten }}, containing: 
+                                    {% for entry in meal.entry_set.all %}
+                                        <a href="{% url 'detail' entry.food.name %}" >{{ entry.food.name }}</a>
+                                    {% endfor %}
+                                    <label for="a{{ meal.id }}">Add this meal to your dietlog? <a href="{% url 'view_meal' meal.id %}" >{{ meal.name }}</a></label><input type="checkbox" id="a{{ meal.id }}" name="a{{ meal.id }}" value="True">
+                                </li>
+                        {% endfor %}
+                        Do you want to delete this dietlog and all its attached meals? <input type="checkbox" id="delete" name="delete" value="True">
+                        <input type="submit" id="update_dietlog" name="update_dietlog" value="Update!"
+                    </ul>
+                </form>
             </div>
         
             

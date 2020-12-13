@@ -5,10 +5,17 @@ from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
+from django.template.defaulttags import register
 from .models import Dietlog
+from food.models import Meal
 
 import datetime
 import re
+
+@register.filter(name='lookup')
+def lookup(value, arg):
+    return value[arg]
+
 
 def check_user(string): 
     regex = re.compile('[@_!#$%^&*()<>?/\|}{~:.,; ]')      
@@ -24,10 +31,12 @@ def check_password(string):
     else: 
         return False
 
+@login_required
 def show_profile(request, user_id):
     return render(request, 'accounts/profile.html')
 
 #TODO: fix this
+@login_required
 def update_profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     user.email = request.POST.get('Email', '')
@@ -38,14 +47,24 @@ def update_profile(request, user_id):
     #print(request.POST) #debug
     user.profile.bio = request.POST.get('Bio', '')
     user.profile.location = request.POST.get('Location', '')
-    user.profile.birth_date = datetime.datetime.strptime(str(request.POST.get('Birthdate', timezone.now()))[:10], '%Y-%m-%d')
+    try:
+        user.profile.birth_date = datetime.datetime.strptime(str(request.POST.get('Birthdate'))[:10], '%Y-%m-%d')
+    except ValueError:
+        pass
     user.profile.goals = request.POST.get('Goals', '')
     user.profile.weight = float(request.POST.get('Weight', '-1.0'))
     user.profile.gender = request.POST.get('Gender', '')
     #user.profile.coach = request.POST['Coach']
     user.profile.save()
 
-    return show_profile(request, user)
+    if request.POST.get('create', False):
+        log = Dietlog.create(user=user, name='blank_dietlog')
+        log.save()
+        return HttpResponseRedirect(reverse('accounts:log', args=(user.id, log.id)))
+
+    #TODO need delete
+
+    return HttpResponseRedirect(reverse('accounts:profile', args=(user.id)))
 
 def register(request):
     if request.method == "POST":
@@ -104,11 +123,67 @@ def register(request):
 def dietlog(request, user_id, log_id):
     dietlog = get_object_or_404(Dietlog, pk=log_id)
     user = get_object_or_404(Dietlog, pk=log_id)
+
+    active_meals = {}
+    add_meals = []
+    for meal_id in request.session.get('meal_set'):
+        meal_id = int(meal_id)
+        for meal in dietlog.meal_set.all():
+            if meal.id == int(meal_id):
+                active_meals[meal_id] = 1
+                break
+        if active_meals.get(meal_id, None) == None:
+            add_meals.append(Meal.objects.get(id=meal_id))
+
+    print(active_meals)
+    print(add_meals)
+
+    #idk why this is here lol
     if request.method == "POST":
         
-        return render(request, 'accounts/dietlog.html', {'log':dietlog})
+        return render(request, 'accounts/dietlog.html', {'log':dietlog, 'active_meals':active_meals, 'add_meals':add_meals})
     else:
         #probably a get method
-        return render(request, 'accounts/dietlog.html', {'log':dietlog})
+        return render(request, 'accounts/dietlog.html', {'log':dietlog, 'active_meals':active_meals, 'add_meals':add_meals})
+
+@login_required
+def update_dietlog(request, user_id, log_id):
+    user = get_object_or_404(User, pk=user_id)
+    log = get_object_or_404(Dietlog, pk=log_id)
+
+    meal_set = request.session.get('meal_set', [])
+
+    if bool(request.POST.get('delete', False)): #Dietlog was designated to be deleted
+            Dietlog.objects.filter(id=log_id).delete()
+            return HttpResponseRedirect(reverse('accounts:profile', args=(user.id,)))
+
+    #activate/deactivate those already a part of the dietlog
+    for meal in log.meal_set.all():
+        if request.POST.get("m{}".format(meal.id), False) and not meal.id in meal_set:
+            request.session['meal_set'].append(meal.id)
+        elif request.POST.get("m{}".format(meal.id), False):
+            pass
+        else:
+            try:
+                request.session['meal_set'].remove(meal.id)
+                meal.active = False
+            except ValueError:
+                pass
+        if request.POST.get("r{}".format(meal.id), False):
+            log.meal_set.remove(meal)
+
+    request.session.modified = True
+
+    for meal_id in meal_set:
+        if request.POST.get("a{}".format(meal_id), False):
+            m = Meal.objects.get(id=meal_id)
+            log.meal_set.add(m)
+            m.save()
+            log.save()
+
+    log.name = request.POST.get('Logname')
+    log.save()
+
+    return HttpResponseRedirect(reverse('accounts:log', args=(user.id, log_id)))
 
     
