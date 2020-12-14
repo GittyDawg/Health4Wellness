@@ -38,6 +38,18 @@
                 <li><label for="Weight">Weight:</label> <input class=box type="text" name="Weight" id="Weight" value="{{ user.profile.weight }}" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
                 <li><label for="Gender">Gender:</label> <input class=box type="text" name="Gender" id="Gender" value="{{ user.profile.gender }}" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
                 <li><label for="Coach">Coach:</label> <input class=box type="text" name="Coach" id="Coach" value="{{ user.profile.coach }}" size=30 style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+                <li>Coach's email:
+                    {% if user.coach != None %}
+                       {{ user.coach.email }}
+                   {% else %}
+                       No email to display since you have no coach
+                   {% endif %}
+               </li>
+               {% for log in user.dietlog_set.all %}
+                   <li>View dietlog: <a href="{% url 'accounts:log' user.id log.id %}">{{ log.name }}</a></li>
+               {% endfor %}
+
+               <li>Create new dietlog: <input type="checkbox" name="create" value="True"></li>
             </ul>
 
 

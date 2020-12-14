@@ -23,6 +23,38 @@
                         <li>Protein:{{ food.protein }}</a></li>
                         <li>Calories: {{ food.calories }}</a></li>
                         <li>Ingredients: {{ food.ingredients }}</a></li>
+                        <form action="{% url 'add_food' food.id %}" method="post">
+                        {% csrf_token %}
+                        {%  if meal_set|length < 1 %}
+                            <li>Create a meal containing this food!</li>
+                            
+                            <label for="mealblank_meal">Yes!</label>
+                                <input type="radio" name="yes" value="0" id="mealblank_meal" class="btn btn-default">
+                            
+                        {% else %}
+                            {% for meal in meal_set %}
+                                
+                                    
+                                <li>Would you like to add this food to your current meal: {{ meal.name }}</a></li>
+                                <label for="meal{{ meal.name }}">Yes!</label>
+                                <input type="radio" name="yes" id="meal{{ meal.name }}" value="{{ meal.id }}" class="btn btn-default">
+                                
+                            {% endfor %}
+                            
+                            
+                                
+                                <li>Create a new meal containing this food!</li>
+                                <label for="mealblank_meal">Yes!</label>
+                                <input type="radio" name="yes" value="0" id="mealblank_meal" class="btn btn-default">
+                               
+                            
+                        {% endif %}
+                        <br>
+                        <input type="submit" value="go">
+                    </form>
+                        
+                        <!--<a class=button href="#">YES!</a>-->
+                        <!-- <form id=meal-bttn action="" method="get"></form>-->
                     </ul>
                 {% else %}
                     <p>No food is available.</p>

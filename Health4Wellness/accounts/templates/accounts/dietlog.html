@@ -1,0 +1,119 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type=text/css href="{% static 'accounts/profile.css' %}">
+    </head>
+
+    <body>
+        {# <form action="{% url 'accounts:update' user.id %}" method="post"> #}
+            {% csrf_token %}
+            <div id="tsparticles" style="position: fixed; z-index: -1;">
+                <canvas class="tsparticles-canvas-el" 
+                    style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                    width="1034" height="956">
+                </canvas>
+            </div>
+            <div id=banner>
+                Your Dietlog
+            </div>
+
+            <div id=content>
+                <form action="{% url 'accounts:update_dietlog' user.id log.id %}" method="POST">
+                    {% csrf_token %}
+                    <label for="Logname">Meal:</label> <input class=box type="text" name="Logname" id="Logname" value="{{ log.name }}" size=50>
+                    <ul>
+                        {% for meal in log.meal_set.all %}
+    
+                            {% if active_meals|lookup:meal.id == 1 %}
+                                <li><label for="m{{ meal.id }}"><a href="{% url 'view_meal' meal.id %}" >{{ meal.name }}</a></label><input type="checkbox" id="m{{ meal.id }}" name="m{{ meal.id }}" value="True" checked> eaten at {{ meal.date_eaten }}, containing: 
+                                    {% for entry in meal.entry_set.all %}
+                                        <a href="{% url 'detail' entry.food.name %}" >{{ entry.food.name }}</a>
+                                    {% endfor %}
+                                    <p>Remove? <input type="checkbox" id="r{{ meal.id }}" name="r{{ meal.id }}" value="True"></p>
+                                </li>
+                            {% else %}
+                                <li><label for="m{{ meal.id }}"><a href="{% url 'view_meal' meal.id %}" >{{ meal.name }}</a></label><input type="checkbox" id="m{{ meal.id }}" name="m{{ meal.id }}" value="True"> eaten at {{ meal.date_eaten }}, containing: 
+                                    {% for entry in meal.entry_set.all %}
+                                        <a href="{% url 'detail' entry.food.name %}" >{{ entry.food.name }}</a>
+                                    {% endfor %}
+                                    <p>Remove? <input type="checkbox" id="r{{ meal.id }}" name="r{{ meal.id }}" value="True"></p>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% for meal in add_meals %}
+                                <li>{{ meal.name }} eaten at {{ meal.date_eaten }}, containing: 
+                                    {% for entry in meal.entry_set.all %}
+                                        <a href="{% url 'detail' entry.food.name %}" >{{ entry.food.name }}</a>
+                                    {% endfor %}
+                                    <label for="a{{ meal.id }}">Add this meal to your dietlog? <a href="{% url 'view_meal' meal.id %}" >{{ meal.name }}</a></label><input type="checkbox" id="a{{ meal.id }}" name="a{{ meal.id }}" value="True">
+                                </li>
+                        {% endfor %}
+                        Do you want to delete this dietlog and all its attached meals? <input type="checkbox" id="delete" name="delete" value="True">
+                        <input type="submit" id="update_dietlog" name="update_dietlog" value="Update!"
+                    </ul>
+                </form>
+            </div>
+        
+            
+        {# </form> #}
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
+            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
+            crossorigin="anonymous"></script>
+        <script>
+            window.onload = function() {
+                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
+                // p is the loaded container, for using it later
+                console.log('callback - particles.js config loaded');
+                });
+                tsParticles.load("tsparticles", {
+                particles: {
+                    number: {
+                    value: 120,
+                    density: {
+                        enable: true,
+                        area: 800
+                    }
+                    },
+                    color: {
+                    value: ["rgb(0,0,0)"]
+                    },
+                    shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#b6b2b2"
+                    }
+                    },
+                    size: {
+                    value: 2,
+                    random: false,
+                    },
+                    lineLinked: {
+                    enable: true,
+                    distance: 130,
+                    color: "rgb(0,0,0)",
+                    opacity: 1,
+                    width: 1,
+                    },
+                    move: {
+                    enable: true,
+                    speed: .8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    outMode: "bounce",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                    }
+                },
+                });
+            };
+        </script>
+    </body>
+</html>

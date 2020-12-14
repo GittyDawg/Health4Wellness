@@ -1,0 +1,94 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type=text/css href="{% static 'css/added_food.css' %}">
+    </head>
+    <body>
+        <div id="tsparticles" style="position: fixed; z-index: -1;">
+            <canvas class="tsparticles-canvas-el" 
+                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                width="1034" height="956">
+            </canvas>
+        </div>
+        <div id=banner>
+            <h1>Meal view</h1>
+        </div>
+        <form action="{% url 'update_meal' meal.id %}" method="POST">
+            {% csrf_token %}
+            <div id=content>
+                <label for="Mealname">Meal:</label> <input class=box type="text" name="Mealname" id="Mealname" value="{{ meal.name }}" size=50>
+                <label for="Eatdate">Date eaten:</label> <input class=box type="date" name="Eatdate" id="Eatdate" value="{{ meal.date_eaten|date:'Y-m-d' }}">
+                <ul>
+                    {% for entry in meal.entry_set.all %}
+                        <li><a href="{% url 'detail' entry.food.name %}">{{ entry.food.name }}</a>: <input type="number" id="e{{ entry.id}}" name="e{{ entry.id }}" value="{{ entry.quantity }}" min="0" max="100"></li>
+                    {% endfor %}
+                    <a href="{% url 'index' %}"><button type="button" class="btn btn-default">Search again!</button></a>
+                </ul>
+
+                <label for="delete">Delete:</label><input id="delete" class=box type="checkbox" name="delete" value="True">
+                <input id=button class=box type="submit" value="Update Meal!">
+            </div>
+        </form>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
+            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
+            crossorigin="anonymous"></script>
+        <script>
+            window.onload = function() {
+                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
+                // p is the loaded container, for using it later
+                console.log('callback - particles.js config loaded');
+                });
+                tsParticles.load("tsparticles", {
+                particles: {
+                    number: {
+                    value: 120,
+                    density: {
+                        enable: true,
+                        area: 800
+                    }
+                    },
+                    color: {
+                    value: ["rgb(0,0,0)"]
+                    },
+                    shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#b6b2b2"
+                    }
+                    },
+                    size: {
+                    value: 2,
+                    random: false,
+                    },
+                    lineLinked: {
+                    enable: true,
+                    distance: 130,
+                    color: "rgb(0,0,0)",
+                    opacity: 1,
+                    width: 1,
+                    },
+                    move: {
+                    enable: true,
+                    speed: .8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    outMode: "bounce",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                    }
+                },
+                });
+            };
+        </script>
+
+    </body>
+
+</html>
+
