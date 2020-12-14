@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import Dietlog
 from django.db.models.signals import pre_delete, m2m_changed
+from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.contrib.sessions.models import Session
 from django.dispatch import receiver
 
@@ -71,3 +72,13 @@ def handle_meals(sender, **kwargs):
         #    Meal.objects.filter(id=meal_id).delete()
 
 #pre_delete.connect(sessionend_handler, sender=Session)
+
+def delete_meals_on_log(sender, user, request, **kwargs):
+    for m_id in request.session.get('meal_set', []):
+        meal = Meal.objects.get(id=m_id)
+        if meal.dietlog == None:
+            Meal.objects.filter(id=m_id).delete()
+    request.session['meal_set'] = []
+
+user_logged_in.connect(delete_meals_on_log)
+user_logged_out.connect(delete_meals_on_log)

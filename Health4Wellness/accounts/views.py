@@ -219,9 +219,9 @@ class SessionExpiredMiddleware:
         for sess in Session.objects.all():
             data = sess.get_decoded()
             last_activity = datetime.datetime.strptime(data.get('last_activity', datetime.datetime.strftime(now, "%d/%m/%Y %H:%M:%S")), "%d/%m/%Y %H:%M:%S")
-            print(sess.session_key)
-            print(last_activity)
-            print(now)
+            #print(sess.session_key)
+            #print(last_activity)
+            #print(now)
             if (now - last_activity).total_seconds() > 600 and sess.session_key != request.session.session_key:
                 for meal_id in data.get('meal_set', []):
                     meal = Meal.objects.get(id=meal_id)
