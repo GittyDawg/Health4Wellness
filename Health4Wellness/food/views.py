@@ -3,7 +3,9 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import food, Meal, Entry
 from django.db.models import Q
+from accounts.views import keep_session_active
 import requests
+import datetime
 # Create your views here.
 
 def check_meal_owner(request, meal_id):
@@ -16,6 +18,7 @@ def check_meal_owner(request, meal_id):
 def index(request):
     food_list = food.objects.order_by('calories')[:15]
     output = ', '.join([q.name for q in food_list])
+    keep_session_active(request)
     return render(request, 'food/index.html', {'food_list': food_list})
 
 
@@ -26,7 +29,7 @@ def detail(request, name):
     meal_set = request.session.get('meal_set', [])
     for i in range(len(meal_set)):
         meal_set[i] = Meal.objects.get(id=meal_set[i])
-
+    keep_session_active(request)
     return render(request, 'food/details.html', {'food': this_food, 'meal_set': meal_set})
 
 
@@ -40,10 +43,12 @@ def compare(request):
         this_food1 = None
         this_food2 = None
     context = {'food1': this_food1, 'food2': this_food2}
+    keep_session_active(request)
     return render(request, 'food/compare.html', context)
 
 
 def compare_search(request):
+    keep_session_active(request)
     return render(request, 'food/compare_search.html')
 
 
@@ -52,6 +57,7 @@ def search(request):
     object_list = food.objects.filter(
         Q(name__icontains=query) | Q(ingredients__icontains=query)
     )
+    keep_session_active(request)
     return render(request, 'food/search.html', {'foods': object_list})
 
 def update_meal(request, meal_id):
@@ -65,6 +71,11 @@ def update_meal(request, meal_id):
         meal = Meal.objects.get(id=meal_id)
         meal.name = request.POST.get('Mealname')
 
+        try:
+            meal.date_eaten = datetime.datetime.strptime(str(request.POST.get('Eatdate'))[:10], '%Y-%m-%d')
+        except ValueError:
+            meal.date_eaten = datetime.datetime.now()
+
         for entry in meal.entry_set.all():
             quantity = int(request.POST.get("e{}".format(entry.id)))
             #print(entry)
@@ -76,14 +87,17 @@ def update_meal(request, meal_id):
                 entry.quantity = quantity
                 entry.save()
         meal.save()
+        keep_session_active(request)
         return HttpResponseRedirect(reverse('view_meal', args=(meal_id,)))
     else:
         #Yell at them for being hackers lol
         print("blocked {}".format(request.session.get('meal_set')))
+        keep_session_active(request)
         return Http404()
 
 def add_food_to_meal(request, food_id):
     if request.POST.get("yes") == None:
+        keep_session_active(request)
         return HttpResponseRedirect(reverse('detail', args=(food.objects.get(id=food_id).name,)))
 
     meal_id = int(request.POST.get("yes"))
@@ -117,16 +131,20 @@ def add_food_to_meal(request, food_id):
         else:
             #yell at them, for being hackers lol
             print("blocked {}".format(request.session.get('meal_set')))
+            keep_session_active(request)
             return Http404()
     request.session.modified = True
     
     context = {'meal': this_meal}
+    keep_session_active(request)
     return HttpResponseRedirect(reverse('view_meal', args=(this_meal.id,)))
 
 def view_meal(request, meal_id):
+    keep_session_active(request)
     return render(request, 'food/meal.html', {'meal': Meal.objects.get(id=meal_id)})
 
 def search_fda(request):
+    keep_session_active(request)
     return render(request, 'food/search_fda.html')
 
 
@@ -144,7 +162,7 @@ def search_fda_list(request):
         'foodz': foodz,
         'query': query
     }
-
+    keep_session_active(request)
     return render(request, 'food/search_fda_list.html', context)
 
 
@@ -219,7 +237,7 @@ def search_fda_details(request):
         'foodz': foodz,
         'query': query
     }
-
+    keep_session_active(request)
     return render(request, 'food/search_fda_details.html', context)
 
 

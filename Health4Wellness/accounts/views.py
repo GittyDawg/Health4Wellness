@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, Permission, Group
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
+from django.contrib.sessions.models import Session
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
@@ -16,6 +17,8 @@ import re
 def lookup(value, arg):
     return value[arg]
 
+def keep_session_active(request):
+    request.session['last_activity'] = datetime.datetime.strftime(datetime.datetime.now(), "%d/%m/%Y %H:%M:%S")
 
 def check_user(string): 
     regex = re.compile('[@_!#$%^&*()<>?/\|}{~:.,; ]')      
@@ -33,6 +36,7 @@ def check_password(string):
 
 @login_required
 def show_profile(request, user_id):
+    keep_session_active(request)
     return render(request, 'accounts/profile.html')
 
 #TODO: fix this
@@ -50,7 +54,7 @@ def update_profile(request, user_id):
     try:
         user.profile.birth_date = datetime.datetime.strptime(str(request.POST.get('Birthdate'))[:10], '%Y-%m-%d')
     except ValueError:
-        pass
+        user.profile.birth_date = datetime.datetime.now()
     user.profile.goals = request.POST.get('Goals', '')
     user.profile.weight = float(request.POST.get('Weight', '-1.0'))
     user.profile.gender = request.POST.get('Gender', '')
@@ -62,9 +66,8 @@ def update_profile(request, user_id):
         log.save()
         return HttpResponseRedirect(reverse('accounts:log', args=(user.id, log.id)))
 
-    #TODO need delete
-
-    return HttpResponseRedirect(reverse('accounts:profile', args=(user.id)))
+    keep_session_active(request)
+    return HttpResponseRedirect(reverse('accounts:profile', args=(user.id,)))
 
 def register(request):
     if request.method == "POST":
@@ -96,6 +99,7 @@ def register(request):
 
         if len(error_message) > 0:
             #Failure
+            keep_session_active(request)
             return render(request, 'accounts/register.html', {
                 'error_message': error_message,
                 'username': username,
@@ -115,8 +119,10 @@ def register(request):
             registered_group.user_set.add(user)
             registered_group.save()
             login(request, user)
+            keep_session_active(request)
             return HttpResponseRedirect(reverse('accounts:profile', args=(user.id,)))
     else:
+        keep_session_active(request)
         return render(request, 'accounts/register.html')
 
 @login_required
@@ -126,7 +132,7 @@ def dietlog(request, user_id, log_id):
 
     active_meals = {}
     add_meals = []
-    for meal_id in request.session.get('meal_set'):
+    for meal_id in request.session.get('meal_set', []):
         meal_id = int(meal_id)
         for meal in dietlog.meal_set.all():
             if meal.id == int(meal_id):
@@ -135,9 +141,10 @@ def dietlog(request, user_id, log_id):
         if active_meals.get(meal_id, None) == None:
             add_meals.append(Meal.objects.get(id=meal_id))
 
-    print(active_meals)
-    print(add_meals)
+    #print(active_meals)
+    #print(add_meals)
 
+    keep_session_active(request)
     #idk why this is here lol
     if request.method == "POST":
         
@@ -160,7 +167,11 @@ def update_dietlog(request, user_id, log_id):
     #activate/deactivate those already a part of the dietlog
     for meal in log.meal_set.all():
         if request.POST.get("m{}".format(meal.id), False) and not meal.id in meal_set:
-            request.session['meal_set'].append(meal.id)
+            session_set = request.session.get('meal_set', [])
+            if len(session_set) == 0:
+                request.session['meal_set'] = [meal.id]
+            else:
+                request.session['meal_set'].append(meal.id)
         elif request.POST.get("m{}".format(meal.id), False):
             pass
         else:
@@ -184,6 +195,42 @@ def update_dietlog(request, user_id, log_id):
     log.name = request.POST.get('Logname')
     log.save()
 
+    keep_session_active(request)
     return HttpResponseRedirect(reverse('accounts:log', args=(user.id, log_id)))
+
+class SessionExpiredMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        now = datetime.datetime.now()
+        last_activity = datetime.datetime.strptime(request.session.get('last_activity', datetime.datetime.strftime(now, "%d/%m/%Y %H:%M:%S")), "%d/%m/%Y %H:%M:%S")
+        
+        if (now - last_activity).total_seconds() > 600:
+            try:
+                logout(request.user)
+            except:
+                pass
+            for meal_id in request.session.get('meal_set', []):
+                meal = Meal.objects.get(id=meal_id)
+                meal.active = False
+                if meal.dietlog == None:
+                    Meal.objects.filter(id=meal_id).delete()
+        for sess in Session.objects.all():
+            data = sess.get_decoded()
+            last_activity = datetime.datetime.strptime(data.get('last_activity', datetime.datetime.strftime(now, "%d/%m/%Y %H:%M:%S")), "%d/%m/%Y %H:%M:%S")
+            #print(sess.session_key)
+            #print(last_activity)
+            #print(now)
+            if (now - last_activity).total_seconds() > 600 and sess.session_key != request.session.session_key:
+                for meal_id in data.get('meal_set', []):
+                    meal = Meal.objects.get(id=meal_id)
+                    meal.active = False
+                    if meal.dietlog == None:
+                        Meal.objects.filter(id=meal_id).delete()
+                Session.objects.filter(session_key=sess.session_key).delete()
+
+        response = self.get_response(request)
+        return response
 
     

@@ -17,6 +17,7 @@
             {% csrf_token %}
             <div id=content>
                 <label for="Mealname">Meal:</label> <input class=box type="text" name="Mealname" id="Mealname" value="{{ meal.name }}" size=50>
+                <label for="Eatdate">Date eaten:</label> <input class=box type="date" name="Eatdate" id="Eatdate" value="{{ meal.date_eaten|date:'Y-m-d' }}">
                 <ul>
                     {% for entry in meal.entry_set.all %}
                         <li><a href="{% url 'detail' entry.food.name %}">{{ entry.food.name }}</a>: <input type="number" id="e{{ entry.id}}" name="e{{ entry.id }}" value="{{ entry.quantity }}" min="0" max="100"></li>
