@@ -7,3 +7,4 @@ from django.db.models import Q
 
 def index(request):
     return render(request, 'Health4Wellness/index.html')
+    # return render(request, 'food/index.html')

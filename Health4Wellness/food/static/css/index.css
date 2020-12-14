@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  /* font-family: Montserrat, Arial, Helvetica, sans-serif; */
+  font-family: Montserrat;
 }
 #banner {
   text-align: center;
@@ -32,7 +33,7 @@ ul {
   margin-left: 15%;
   margin-right: 15%;
   position: relative;
-  height: auto;
+  height: 500px;
   padding: 5%;
   margin-top: 15%;
   font-family: "Roboto", sans-serif;

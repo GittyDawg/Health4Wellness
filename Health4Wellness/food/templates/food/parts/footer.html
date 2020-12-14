@@ -1,0 +1,157 @@
+    <div id="Web_1920__1" class="Web_1920__1_Class">
+        <svg class="Rectangle_1">
+            <rect class="Rectangle_1_Class" rx="0" ry="0" x="0" y="0" width="1920" height="101">
+                
+                <div class="parent">
+                    <div class="login_button">
+                        {% if user.is_authenticated %}
+                        <a class=button2 href="{% url 'logout' %}?next={{request.path}}">
+                            LOGOUT
+                        </a>
+                        {% else %}
+                        <a class=button2 href="{% url 'login' %}?next={{request.path}}">
+                            LOGIN
+                        </a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="Welcome_Joshua_Class">
+                        {% if user.is_authenticated %}
+                        <span>Welcome, &nbsp{{ user.get_username }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="parent2">
+                    <div class="Health4Wellness_Class">
+                        <span><a href='/'>🍽 Health4Wellness</a></span>
+                    </div>
+
+                    <div class="HOME_Class">
+                        <a href="/ " class="navigation-item w-nav-link">HOME</a>
+                    </div>
+                    <div class="Line_1_Class">       
+                        <svg class="Line_1" viewBox="0 0 1 19">
+                            <path class="Line_1_Class" d="M 0 0 L 0 19">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="SEARCH_Class">
+                        <a href="/food/search_fda/" class="navigation-item w-nav-link">SEARCH</a>
+                    </div>
+                    <div class="Line_2_Class">
+                        <svg class="Line_2" viewBox="0 0 1 19">
+                            <path class="Line_2_Class" d="M 0 0 L 0 19">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="COMPARE_Class">
+                        <a href="/food/compare_search" class="navigation-item w-nav-link">COMPARE</a>
+                    </div>
+                    <div class="Line_3_Class">
+                        {% if user.is_authenticated %}
+                        <svg class="Line_3" viewBox="0 0 1 19">
+                            <path class="Line_3_Class" d="M 0 0 L 0 19">
+                            </path>
+                        </svg>
+                        {% endif %} 
+                    </div>
+                    <div class="PROFILE_Class">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:profile' user.id %}"> 
+                            PROFILE
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </rect>
+        </svg>
+        <svg class="Rectangle_4">
+            <rect class="Rectangle_4_Class" rx="0" ry="0" x="0" y="0" width="1920" height="101">
+            </rect>
+        </svg>
+        
+        
+        <!-- <div style="position:absolute;width:124px;height:59.375px;left:1658px;top:20.812px;overflow:visible;" class="Group_1_Class">
+            Welcome, 
+        </div> -->
+        
+
+        <div class="Developed_by_Josh_B_Michael_B__Class">
+            <span>Developed by Josh B, Michael B, Tyler B, Josh D, & Christian S. </span>
+        </div>
+        <div class="ID2020_AU_Software_Engineering_Class">
+            <span>©2020 AU Software Engineering Class</span>
+        </div>
+        
+        
+        </div>
+    </div>
+
+    <!-- <div id=banner>
+        Health 4 Wellness!
+    </div> -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
+        integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
+        crossorigin="anonymous"></script>
+    <script>
+        window.onload = function() {
+            tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
+            // p is the loaded container, for using it later
+            console.log('callback - particles.js config loaded');
+            });
+            tsParticles.load("tsparticles", {
+            particles: {
+                number: {
+                value: 120,
+                density: {
+                    enable: true,
+                    area: 800
+                }
+                },
+                color: {
+                value: ["rgb(0,0,0)"]
+                },
+                shape: {
+                type: "circle",
+                stroke: {
+                    width: 0,
+                    color: "#b6b2b2"
+                }
+                },
+                size: {
+                value: 2,
+                random: false,
+                },
+                lineLinked: {
+                enable: true,
+                distance: 130,
+                color: "rgb(0,0,0)",
+                opacity: 1,
+                width: 1,
+                },
+                move: {
+                enable: true,
+                speed: .8,
+                direction: "none",
+                random: true,
+                straight: false,
+                outMode: "bounce",
+                bounce: false,
+                attract: {
+                    enable: false,
+                    rotateX: 600,
+                    rotateY: 1200
+                }
+                }
+            },
+            });
+        };
+    </script>
+
+</body>
