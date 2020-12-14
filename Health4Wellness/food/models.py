@@ -62,12 +62,12 @@ def handle_meals(sender, **kwargs):
         if meal.dietlog == None and meal.active == False:
             Meal.objects.filter(id=meal.id).delete()
 
-def sessionend_handler(sender, **kwargs):
-    print(sender)
+#def sessionend_handler(sender, **kwargs):
+    #print(sender)
     #for meal_id in sender.get('meal_set', []):
         #m = Meal.objects.filter(id=meal_id)
         #m.active = False
         #if m.dietlog == None:
         #    Meal.objects.filter(id=meal_id).delete()
 
-pre_delete.connect(sessionend_handler, sender=Session)
+#pre_delete.connect(sessionend_handler, sender=Session)
