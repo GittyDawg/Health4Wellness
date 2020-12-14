@@ -9,3 +9,4 @@ from accounts.views import keep_session_active
 def index(request):
     keep_session_active(request)
     return render(request, 'Health4Wellness/index.html')
+    # return render(request, 'food/index.html')

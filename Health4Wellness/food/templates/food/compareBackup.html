@@ -1,0 +1,112 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type=text/css href="{% static 'css/compare.css' %}">
+    </head>
+    <body>
+        <div id="tsparticles" style="position: fixed; z-index: -1;">
+            <canvas class="tsparticles-canvas-el" 
+                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
+                width="1034" height="956">
+            </canvas>
+        </div>
+        <div id=banner>
+            <h1>Eat 4 Wellness Food Database</h1>
+        </div>
+        <div id=content>
+            {% if food1 and food2 %}
+            <div id=nutr_label class=food>
+                <ul>
+                    Name<br>
+                    Calories<br>
+                    Carbohydrates<br>
+                    Fat<br>
+                    Protein<br>
+                    Ingredients<br>
+                </ul>
+            </div>
+            <div id=food1 class=food>
+                {{food1.name}}<br>
+                {{food1.calories}}<br>
+                {{food1.carbohydrates}}<br>
+                {{food1.fat}}<br>
+                {{food1.protein}}<br>
+                {{food1.ingredients}}<br>
+            </div>
+            <div id=food2 class=food>
+                {{food2.name}}<br>
+                {{food2.calories}}<br>
+                {{food2.carbohydrates}}<br>
+                {{food2.fat}}<br>
+                {{food2.protein}}<br>
+                {{food2.ingredients}}<br>
+            </div>
+            {% else %}
+                <p>No food is available.</p>
+            {% endif %}
+            
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
+            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
+            crossorigin="anonymous"></script>
+        <script>
+            window.onload = function() {
+                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
+                // p is the loaded container, for using it later
+                console.log('callback - particles.js config loaded');
+                });
+                tsParticles.load("tsparticles", {
+                particles: {
+                    number: {
+                    value: 120,
+                    density: {
+                        enable: true,
+                        area: 800
+                    }
+                    },
+                    color: {
+                    value: ["rgb(0,0,0)"]
+                    },
+                    shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#b6b2b2"
+                    }
+                    },
+                    size: {
+                    value: 2,
+                    random: false,
+                    },
+                    lineLinked: {
+                    enable: true,
+                    distance: 130,
+                    color: "rgb(0,0,0)",
+                    opacity: 1,
+                    width: 1,
+                    },
+                    move: {
+                    enable: true,
+                    speed: .8,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    outMode: "bounce",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                    }
+                },
+                });
+            };
+        </script>
+
+    </body>
+
+</html>
+
+

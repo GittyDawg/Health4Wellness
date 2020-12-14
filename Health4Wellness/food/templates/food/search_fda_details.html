@@ -1,117 +1,89 @@
-<html>
-    <head>
-        {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'css/details.css' %}">
-    </head>
-    <body>
-        <div id="tsparticles" style="position: fixed; z-index: -1;">
-            <canvas class="tsparticles-canvas-el" 
-                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
-                width="1034" height="956">
-            </canvas>
+{% extends 'food/base.html' %}
+
+{% block listing %}
+<div id=content style="position: relative;">
+    <div style="display: block; position: relative; margin-bottom: 7%; font-size: 40px; width: 800px;">
+        <!-- <h3 style="left: -20%; padding: 5%; display: block; position: relative;width: 1200px; font-size: 20px;"><a href="javascript:history.back()"><pre> < Back to list</pre></a></h3> -->
+        <div class="button" style="background-color: #2c73cf7c; margin:5%; padding: 10px 100px; position: relative; font-size: 20px;">
+            <a class=button2 href="javascript:history.back()" style="width: auto;""> 
+                <pre> < Back to list</pre>
+            </a>
         </div>
-        <div id=banner>
-            <h1><a href='/food'>🍽 Eat 4 Wellness: FDA Database</a></h1>
-        </div>
-        <div id=content>
-            <br><p><h3><a href="javascript:history.back()"><pre> < Back to list</pre></a></h3></p>
-            <h1 id=search_title>{{ foodz.0.name }}</h1>
-            <div id=foods></div>
+        
+
+        {% if foodz.0.name %}
+        <h1 id=search_title style="position: relative;display: block; font-family: Montserrat;float: none;margin-top: 7%; padding-bottom: 10%; font-size: 40px;font-weight: bold; width: 100%; text-align: center; ">
+            {{ foodz.0.name }}
+        </h1>
+
+        <div style="display: block; position: relative;margin: 5%; margin-bottom: 0%;margin-top: 0%; font-size: 30px; width: auto; padding-left: 50px;">    
+            <ul style="line-height: 150%; display: block; position: relative;">
+                <li>FDA_ID: {{ foodz.0.fdcId }}</a></li>
+                <li>Brand: <br>{{ foodz.0.brandOwner }}</a></li>
+                <li>Ingredients: <br><p style="line-height: 90%; font-size: 20px; text-transform: lowercase;">{{ foodz.0.ingredients }}</p></a></li>
                 
-                <ul>
-                    <li>FDA_ID: {{ foodz.0.fdcId }}</a></li>
-                    <li>Brand: {{ foodz.0.brandOwner }}</a></li>
-                    <li>Ingredients: <br>{{ foodz.0.ingredients }}</a></li>
-                    <!-- <li>{{ foodz }}</a></li> -->
+                <li>Nutrients: </a></li>
+                
+                <ul style="margin-left: 5%; line-height: 85%;">
+                    <small style="left: 5%;">
+                        <li>
+                            {{ foodz.0.nutrients.0.nutrientName }} <br>
+                            <small style="font-size: 16px;">
+                                Number: {{ foodz.0.nutrients.0.nutrientNumber }} <br>
+                                Amount: {{ foodz.0.nutrients.0.amount }}{{ foodz.0.nutrients.0.units }} <br>
+                                Derived from: {{ foodz.0.nutrients.0.derivedFrom }} <br>
+                            </small>
+                        </li>
+                        <li>
+                            {{ foodz.0.nutrients.1.nutrientName }} <br>
+                            <small style="font-size: 16px;">
+                                Number: {{ foodz.0.nutrients.1.nutrientNumber }} <br>
+                                Amount: {{ foodz.0.nutrients.1.amount }}{{ foodz.0.nutrients.1.units }} <br>
+                                Derived from: {{ foodz.0.nutrients.1.derivedFrom }} <br>
+                            </small>
+                        </li>
+                        <li>
+                            {{ foodz.0.nutrients.2.nutrientName }} <br>
+                            <small style="font-size: 16px;">
+                                Number: {{ foodz.0.nutrients.2.nutrientNumber }} <br>
+                                Amount: {{ foodz.0.nutrients.2.amount }}{{ foodz.0.nutrients.2.units }} <br>
+                                Derived from: {{ foodz.0.nutrients.2.derivedFrom }} <br>
+                            </small>
+                        </li>
+                        <li>
+                            {{ foodz.0.nutrients.3.nutrientName }} <br>
+                            <small style="font-size: 16px;">
+                                Number: {{ foodz.0.nutrients.3.nutrientNumber }} <br>
+                                Amount: {{ foodz.0.nutrients.3.amount }}{{ foodz.0.nutrients.3.units }} <br>
+                                Derived from: {{ foodz.0.nutrients.3.derivedFrom }} <br>
+                            </small>
+                        </li>
+                        <li>
+                            {{ foodz.0.nutrients.4.nutrientName }} <br>
+                            <small style="font-size: 16px;">
+                                Number: {{ foodz.0.nutrients.4.nutrientNumber }} <br>
+                                Amount: {{ foodz.0.nutrients.4.amount }}{{ foodz.0.nutrients.4.units }} <br>
+                                Derived from: {{ foodz.0.nutrients.4.derivedFrom }} <br>
+                            </small>
+                        </li>
+                    </small>
                     
-                    <li>Nutrients: </a></li>
-                    
-                    <ul>
-                        <small> Yet to be displayed... </small>
-                        <!-- {% for x in foodz.0.nutrients %}
-                            <li><small>{{ x }}</small></a></li><br/>
-                        {% endfor %} -->
-                        <!-- <li>Nutrient: {{ foodz.0. }}</li>
-                        <li>Number: {{ foodz.0. }}</li>
-                        <li>Amount: {{ foodz.0. }}{{ foodz.0. }}</li>
-                        <li>Derived from: {{ foodz.0. }}</li> -->
-                        <!-- <script>
-                            //var food = foodz;
-                            function LoopTest() {
-                                var st = 7;
-                                for (var i=0; i<st; i++)
-                                {  
-                                    document.write('<p>' + i + '</p>'); // This writes the number in a paragraph
-                                }
-                            }
-                            LoopTest()
-                        </script> -->
-                        
-                    </ul>
                 </ul>
-                
-                
-            </div>
-        </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
-            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
-            crossorigin="anonymous"></script>
-        <script>
-            window.onload = function() {
-                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
-                // p is the loaded container, for using it later
-                console.log('callback - particles.js config loaded');
-                });
-                tsParticles.load("tsparticles", {
-                particles: {
-                    number: {
-                    value: 120,
-                    density: {
-                        enable: true,
-                        area: 800
-                    }
-                    },
-                    color: {
-                    value: ["rgb(0,0,0)"]
-                    },
-                    shape: {
-                    type: "circle",
-                    stroke: {
-                        width: 0,
-                        color: "#b6b2b2"
-                    }
-                    },
-                    size: {
-                    value: 2,
-                    random: false,
-                    },
-                    lineLinked: {
-                    enable: true,
-                    distance: 130,
-                    color: "rgb(0,0,0)",
-                    opacity: 1,
-                    width: 1,
-                    },
-                    move: {
-                    enable: true,
-                    speed: .8,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    outMode: "bounce",
-                    bounce: false,
-                    attract: {
-                        enable: false,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                    }
-                },
-                });
-            };
-        </script>
+            </ul>
+        </div> 
+        {% else %}
+            <h1 id=search_title style="position: relative;display: block; font-family: Montserrat;float: none;margin-top: 10%; padding-bottom: 10%; font-size: 50px;font-weight: bold; width: 100%; text-align: center; ">
+                (No food selected)
+            </h1>    
+        {% endif %}
 
-    </body>
 
-</html>
+       
 
+
+    </div>
+    
+      
+        
+</div>
+{% endblock %}

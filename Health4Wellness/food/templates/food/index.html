@@ -1,101 +1,30 @@
-<html>
-    <head>
-        {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'css/index.css' %}">
-    </head>
-    <body>
-        <div id="tsparticles" style="position: fixed; z-index: -1;">
-            <canvas class="tsparticles-canvas-el" 
-                style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
-                width="1034" height="956">
-            </canvas>
-        </div>
-        <div id=banner>
-            <h1>🍽 Eat 4 Wellness Food Database</h1>
-        </div>
+{% extends 'food/base.html' %}
 
-        <div id=content>
-            <div id=search>
-                <h1 id=search_title>Search for foods by name or ingredients! or <br>
-                    <a href='compare_search'> 🍔 compare foods!</a> <br>
-                    <a href='search_fda'> 🍕 search the FDA Database</a>
-                </h1>
-                <form id=input_box action="{% url 'search' %}" method="get">
-                    <input id=box name="q" type="text" placeholder="Search...">
-                </form>
-            </div>
-    
-            <div id=foods>
-                {% if food_list %}
-                    <ul>
-                    {% for food in food_list %}
-                        <li><a href="/food/{{ food.name }}/">{{ food.name }}</a></li><br/>
-                    {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No food is available.</p>
-                {% endif %}
-            </div>
-        </div>
+{% block listing %}
+<div id=content>
+    <div id=search>
+        <h1 id=search_title style="font-family: Montserrat;float: none;padding: 10%; font-size: 50px; width: 100%; text-align: center; display: block; margin: 0;">Search for foods by name or ingredients! or <br>
+            <a href='compare_search'> 🍔 compare foods!</a> <br>
+            <a href='search_fda'> 🍕 search the FDA Database</a>
+        </h1>
+        <form id=input_box action="{% url 'search' %}" method="get" style="margin-bottom: 10%;">
+            <input id=box style="width: 100%;height: 15%;font-size: 30px;padding: 5%; position: relative; display: block; margin: 0;" name="q" type="text" placeholder="Search...">
+        </form>
+    </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
-            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
-            crossorigin="anonymous"></script>
-        <script>
-            window.onload = function() {
-                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
-                // p is the loaded container, for using it later
-                console.log('callback - particles.js config loaded');
-                });
-                tsParticles.load("tsparticles", {
-                particles: {
-                    number: {
-                    value: 120,
-                    density: {
-                        enable: true,
-                        area: 800
-                    }
-                    },
-                    color: {
-                    value: ["rgb(0,0,0)"]
-                    },
-                    shape: {
-                    type: "circle",
-                    stroke: {
-                        width: 0,
-                        color: "#b6b2b2"
-                    }
-                    },
-                    size: {
-                    value: 2,
-                    random: false,
-                    },
-                    lineLinked: {
-                    enable: true,
-                    distance: 130,
-                    color: "rgb(0,0,0)",
-                    opacity: 1,
-                    width: 1,
-                    },
-                    move: {
-                    enable: true,
-                    speed: .8,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    outMode: "bounce",
-                    bounce: false,
-                    attract: {
-                        enable: false,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                    }
-                },
-                });
-            };
-        </script>
-
-    </body>
-
-</html>
+    <div id=foods>
+        <section>
+            <h1>Test Database</h1>
+            {% if food_list %}
+                <ul>
+                {% for food in food_list %}
+                    <li><a href="/food/{{ food.name }}/">{{ food.name }}</a></li><br/>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No food is available.</p>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}

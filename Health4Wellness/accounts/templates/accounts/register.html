@@ -1,116 +1,101 @@
-<html>
-    <head>
-        {% load static %}
-        <link rel="stylesheet" type=text/css href="{% static 'accounts/register.css' %}">
-    </head>
+{% extends 'food/base.html' %}
 
-    <body>
-        <form action="{% url 'accounts:register' %}" method="post">
-            {% csrf_token %}
-            <div id="tsparticles" style="position: fixed; z-index: -1;">
-                <canvas class="tsparticles-canvas-el" 
-                    style="width: 100%; height: 100%; background-color: rgb(120, 120, 120);"
-                    width="1034" height="956">
-                </canvas>
-            </div>
-            <div id=banner>
-                Register a new account!
-            </div>
-
-            <div id=content>
-                {% if error_message %}
-                <div id=error>
-                    {% for error in error_message %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-                <ul>
-                    <li><label for="Username">Enter username:</label> <input class=box type="text" name="Username" id="Username" value="{{ username }}" size=50></li>
-                    
-                    <li><label for="FName">Enter first name:</label> <input class=box type="text" name="FName" id="FName" value="{{ fname }}" size=50></li>
-                    <li><label for="LName">Enter last name:</label> <input class=box type="text" name="LName" id="LName" value="{{ lname }}" size=50></li>
-
-                    <li><label for="Email">Enter email:</label> <input class=box type="text" name="Email" id="Email" value="{{ email }}" size=50></li>
-
-                    <li><label for="Password1">Enter password:</label> <input class=box type="password" name="Password1" id="Password1" value="{{ password1 }}" size=50></li>
-                    <li><label for="Password2">Confirm password:</label> <input class=box type="password" name="Password2" id="Password2" value="{{ password2 }}" size=50></li>
-                </ul>
-                {% else %}
-                <ul>
-                    <li><label for="Username">Enter username:</label> <input class=box type="text" name="Username" id="Username" value="" size=50></li>
-
-                    <li><label for="FName">Enter first name:</label> <input class=box type="text" name="FName" id="FName" value="" size=50></li>
-                    <li><label for="LName">Enter last name:</label> <input class=box type="text" name="LName" id="LName" value="" size=50></li>
-
-                    <li><label for="Email">Enter email:</label> <input class=box type="text" name="Email" id="Email" value="" size=50></li>
-
-                    <li><label for="Password1">Enter password:</label> <input class=box type="password" name="Password1" id="Password1" value="" size=50></li>
-                    <li><label for="Password2">Confirm password:</label> <input class=box type="password" name="Password2" id="Password2" value="" size=50></li>
-                </ul>
-                {% endif %}
-                <input id=button class=box type="submit" value="Register!">
-            </div>
+{% block listing %}
+<form action="{% url 'accounts:register' %}" method="post">
+    {% csrf_token %}
+    
+    <div id=content>
         
+        <div>   
             
-        </form>
+            <h1 id=search_title style="position: relative;display: block; font-family: Montserrat;float: none;margin-top: 10%; padding-bottom: 10%; font-size: 40px;font-weight: bold; width: 100%; text-align: center; ">
+                Register a new account!
+            </h1>
+    
+            {% if error_message %}
+            <div id=error>
+                {% for error in error_message %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            <ul style="list-style-type: none;
+            color: rgb(255, 255, 255);
+            font-size: 32px;
+            /* margin: 0 auto; */
+            padding: 10px 15px;
+            margin-top: 0%;
+            margin-left: 0%;
+            margin-right: 0%;
+            margin-bottom: 0%;
+            border-radius: 0.2rem;
+            /* background-color: rgb(255, 255, 255); */
+            border: none;
+            width: 100%;
+            display: block;
+            /* height: 32px; */
+            border-bottom: 0.3rem solid transparent;
+            transition: all 0.3s;">
+                <li><label for="Username">Enter username:</label> <input class=box type="text" name="Username" id="Username" value="{{ username }}" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+                
+                <li><label for="FName">Enter first name:</label> <input class=box type="text" name="FName" id="FName" value="{{ fname }}" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+                <li><label for="LName">Enter last name:</label> <input class=box type="text" name="LName" id="LName" value="{{ lname }}" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+    
+                <li><label for="Email">Enter email:</label> <input class=box type="text" name="Email" id="Email" value="{{ email }}" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+    
+                <li><label for="Password1">Enter password:</label> <input class=box type="password" name="Password1" id="Password1" value="{{ password1 }}" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+                <li><label for="Password2">Confirm password:</label> <input class=box type="password" name="Password2" id="Password2" value="{{ password2 }}" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+            </ul>
+            {% else %}
+            <ul style="list-style-type: none;
+            color: rgb(255, 255, 255);
+            font-size: 32px;
+            /* margin: 0 auto; */
+            padding: 10px 15px;
+            margin-top: 0%;
+            margin-left: 0%;
+            margin-right: 0%;
+            margin-bottom: 0%;
+            border-radius: 0.2rem;
+            /* background-color: rgb(255, 255, 255); */
+            border: none;
+            width: 100%;
+            display: block;
+            /* height: 32px; */
+            border-bottom: 0.3rem solid transparent;
+            transition: all 0.3s;">
+                <li><label for="Username">Enter username:</label> <input class=box type="text" name="Username" id="Username" value="" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+    
+                <li><label for="FName">Enter first name:</label> <input class=box type="text" name="FName" id="FName" value="" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+                <li><label for="LName">Enter last name:</label> <input class=box type="text" name="LName" id="LName" value="" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+    
+                <li><label for="Email">Enter email:</label> <input class=box type="text" name="Email" id="Email" value="" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+    
+                <li><label for="Password1">Enter password:</label> <input class=box type="password" name="Password1" id="Password1" value="" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+                <li><label for="Password2">Confirm password:</label> <input class=box type="password" name="Password2" id="Password2" value="" style="margin-left: 25px;font-size: 24px; height: 32px;float: right;clear: both;"></li>
+            </ul>
+            {% endif %}
+            <input id=button class=box type="submit" value="Register!" style="
+            color: rgb(255, 255, 255);
+            background-color: #2c73cf7c;
+            font-size: 1.2rem;
+            /* margin: 0 auto; */
+            padding: 1.5rem 2rem;
+            margin-top: 10%;
+            margin-left: 12.5%;
+            margin-right: 12.5%;
+            margin-bottom: 10%;
+            border-radius: 0.2rem;
+            /* background-color: rgb(255, 255, 255); */
+            border: none;
+            width: 30%;
+            margin-left: 35%;
+            display: block;
+            border-bottom: 0.3rem solid transparent;
+            transition: all 0.3s;">
+        </div>
+         
+    </div>
 
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js" 
-            integrity="sha512-SrYSABdk01dnXiEz2YOFvpgWn/vePlQwbr/Od+rs6x8/hjfLfR6YfZuU+qW4QaQYnl8mL1a4DgjMMdiXShNzjg==" 
-            crossorigin="anonymous"></script>
-        <script>
-            window.onload = function() {
-                tsParticles.loadJSON('particles-js', 'assets/particles.json').then(function(p) {
-                // p is the loaded container, for using it later
-                console.log('callback - particles.js config loaded');
-                });
-                tsParticles.load("tsparticles", {
-                particles: {
-                    number: {
-                    value: 120,
-                    density: {
-                        enable: true,
-                        area: 800
-                    }
-                    },
-                    color: {
-                    value: ["rgb(0,0,0)"]
-                    },
-                    shape: {
-                    type: "circle",
-                    stroke: {
-                        width: 0,
-                        color: "#b6b2b2"
-                    }
-                    },
-                    size: {
-                    value: 2,
-                    random: false,
-                    },
-                    lineLinked: {
-                    enable: true,
-                    distance: 130,
-                    color: "rgb(0,0,0)",
-                    opacity: 1,
-                    width: 1,
-                    },
-                    move: {
-                    enable: true,
-                    speed: .8,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    outMode: "bounce",
-                    bounce: false,
-                    attract: {
-                        enable: false,
-                        rotateX: 600,
-                        rotateY: 1200
-                    }
-                    }
-                },
-                });
-            };
-        </script>
-    </body>
-</html>
+    
+</form>
+{% endblock %}

@@ -20,6 +20,7 @@ def index(request):
     output = ', '.join([q.name for q in food_list])
     keep_session_active(request)
     return render(request, 'food/index.html', {'food_list': food_list})
+    # return render(request, 'food/index.html')
 
 
 def detail(request, name):
@@ -34,16 +35,31 @@ def detail(request, name):
 
 
 def compare(request):
-    try:
-        this_food1 = food.objects.get(name=request.GET.get(
-            'q'))
-        this_food2 = food.objects.get(name=request.GET.get(
-            'q2'))
-    except food.DoesNotExist:
-        this_food1 = None
-        this_food2 = None
-    context = {'food1': this_food1, 'food2': this_food2}
-    keep_session_active(request)
+    # try:
+    #     this_food1 = food.objects.get(name=request.GET.get(
+    #         'q'))
+    #     this_food2 = food.objects.get(name=request.GET.get(
+    #         'q2'))
+    # except food.DoesNotExist:
+    #     this_food1 = None
+    #     this_food2 = None
+
+    if request.GET.get('q'):
+        food1x = request.GET.get('q')
+        list_food1 = searchFDA(food1x)
+        food1 = list_food1[0]
+        # print(food1)
+    else:
+        food1 = None   
+
+    if request.GET.get('q2'):
+        food2x = request.GET.get('q2')
+        list_food2 = searchFDA(food2x)
+        food2 = list_food2[0]
+    else:
+        food2 = None   
+
+    context = {'food1': food1, 'food2': food2}
     return render(request, 'food/compare.html', context)
 
 
